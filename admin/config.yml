@@ -1,0 +1,2982 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+  branch: master
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: blog
+    label: Blogs
+    folder: cms/blog
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: artikel
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_intro
+        label: intro
+        widget: string
+        required: false
+      - hint: ''
+        name: f_small-image
+        label: klein beeld
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_groot-beeld
+        label: groot beeld
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: blog
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[blog].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+    editor:
+      preview: false
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: isoleren met papier, key: -31b3ea82'
+            label: Text
+            name: '-31b3ea82'
+            widget: string
+          - hint: >-
+              Original text: Specialist in isoleren met cellulosevlokken, key:
+              -28ad61cb
+            label: Text
+            name: '-28ad61cb'
+            widget: string
+          - hint: 'Original text: isolatie, key: 2251b596'
+            label: Text
+            name: 2251b596
+            widget: string
+          - hint: 'Original text: waarom isoleren met papier?, key: -5832b758'
+            label: Text
+            name: '-5832b758'
+            widget: string
+          - hint: >-
+              Original text: De voordelen van isoleren met papiervlokken of
+              cellulosevlokken zijn nog onvoldoende gekend. Papierisolatie is
+              ecologisch, economisch en technisch een topproduct. We zetten de
+              voordelen even op een rijtje., key: -1201caac
+            label: Text
+            name: '-1201caac'
+            widget: text
+          - hint: 'Original text: ontdek de voordelen >, key: e9e6822'
+            label: Text
+            name: e9e6822
+            widget: string
+          - hint: 'Original text: afwerking, key: -24825aca'
+            label: Text
+            name: '-24825aca'
+            widget: string
+          - hint: 'Original text: Eco-dé maakt het werk helemaal af, key: -515bdaf7'
+            label: Text
+            name: '-515bdaf7'
+            widget: string
+          - hint: >-
+              Original text: Je kan naast het inblazen van de isolatie ook voor
+              de volledige afwerking beroep doen op de ervaren medewerkers van
+              Eco-dé. Dit kan bijvoorbeeld gaan over het dichtleggen van een dak
+              of het afwerken van een buitengevel met hout., key: -4aa2e8b0
+            label: Text
+            name: '-4aa2e8b0'
+            widget: text
+          - hint: 'Original text: wat hebben wij te bieden >, key: -7ce42b90'
+            label: Text
+            name: '-7ce42b90'
+            widget: string
+          - hint: 'Original text: advies, key: -54c182bc'
+            label: Text
+            name: '-54c182bc'
+            widget: string
+          - hint: >-
+              Original text: voor professionelen en doe-het-zelvers, key:
+              31628661
+            label: Text
+            name: '31628661'
+            widget: string
+          - hint: >-
+              Original text: Met bijna vijftien jaar ervaring is Eco-dé
+              uitgegroeid tot dé specialist in ecologisch en economisch
+              isoleren. Wij willen die kennis graag met jou delen! Zelfplaatsers
+              staan we graag bij met een deskundig advies, key: -13dac96c
+            label: Text
+            name: '-13dac96c'
+            widget: text
+          - hint: 'Original text: professional >, key: -33864b7b'
+            label: Text
+            name: '-33864b7b'
+            widget: string
+          - hint: 'Original text: particulier >, key: 2a62f450'
+            label: Text
+            name: 2a62f450
+            widget: string
+          - hint: 'Original text: doe-het-zelf >, key: -33fc2554'
+            label: Text
+            name: '-33fc2554'
+            widget: string
+          - hint: 'Original text: waarom isoleren met papier, key: -135c7989'
+            label: Text
+            name: '-135c7989'
+            widget: string
+          - hint: >-
+              Original text: Cellulosevlokken zijn een uitstekend
+              isolatiemateriaal om zoldervloeren en daken te isoleren. Gemaakt
+              van gerecycleerd krantenpapier hebben deze papiervlokken bijzonder
+              goede thermische en akoestische eigenschappen. Cellulose-isolatie
+              bestaat uit fijne vlokken die we inblazen tussen dakbalken en
+              roosteringen. Dit zorgt voor een perfecte dichting en snelle
+              plaatsing., key: -14898b9a
+            label: Text
+            name: '-14898b9a'
+            widget: text
+          - hint: 'Original text: ALLE VOORDELEN OP EEN RIJTJE, key: -6c03a757'
+            label: Text
+            name: '-6c03a757'
+            widget: string
+          - hint: 'Original text: perfecte vulling, key: -45c6af25'
+            label: Text
+            name: '-45c6af25'
+            widget: string
+          - hint: >-
+              Original text: Zeker bij oudere gebouwen, waar niet alle hoeken en
+              muren mooi recht en vlak zijn, biedt dit isolatiemateriaal de
+              ideale oplossing om een 100% gevulde en luchtdichte bouwschil te
+              realiseren., key: 20b94414
+            label: Text
+            name: 20b94414
+            widget: text
+          - hint: 'Original text: meer comfort, key: -5ee67f0f'
+            label: Text
+            name: '-5ee67f0f'
+            widget: string
+          - hint: >-
+              Original text: Met zijn lambda-waarde van 0,039W/mK [i3] tot
+              0,037W/mK [Dämstatt] scoort cellulose zeer goed. Anders gezegd is
+              het een slechte warmtegeleider en dus een prima isolatiemateriaal.
+              Het houdt je woning constant op temperatuur: warm in de winter,
+              koel in de zomer. Bovendien werkt het geluidsdempend., key:
+              -6c554e47
+            label: Text
+            name: '-6c554e47'
+            widget: text
+          - hint: 'Original text: overal toepasbaar, key: -20d8577'
+            label: Text
+            name: '-20d8577'
+            widget: string
+          - hint: >-
+              Original text: Muren, vloeren, plafonds,… van je kelder tot op je
+              zolder, in platte of schuine daken, met spanten of gordingen,…
+              Papiervlokken zijn overal bruikbaar, zowel bij nieuwbouw als bij
+              renovatie., key: -154e0c27
+            label: Text
+            name: '-154e0c27'
+            widget: text
+          - hint: 'Original text: beter voor het klimaat, key: 1decbf04'
+            label: Text
+            name: 1decbf04
+            widget: string
+          - hint: >-
+              Original text: Papiervlokken zijn een ecologisch topproduct. Het
+              recycleren van krantenpapier is een productieproces dat weinig
+              energie vraagt. Zo verminder je twee keer uw CO2-uitstoot: eerst
+              door de energiebesparing in je woning en dan nog eens door het
+              milieuvriendelijke materiaal en het energiearme productieproces.,
+              key: 5a1daa4b
+            label: Text
+            name: 5a1daa4b
+            widget: text
+          - hint: 'Original text: beter voor je gezondheid, key: -73efcc7c'
+            label: Text
+            name: '-73efcc7c'
+            widget: string
+          - hint: >-
+              Original text: Cellulose-isolatie is een natuurlijk product,
+              bewezen brandveilig, zonder schadelijke additieven en werkt
+              vochtregulerend. Dat zorgt voor een prettig en gezond
+              binnenklimaat. Dämmstatt is FSC en natureplus gelabeld. Met
+              papiervlokken haalt je het beste in huis voor je woning én voor
+              jezelf en je omgeving., key: 236bdc8
+            label: Text
+            name: 236bdc8
+            widget: text
+          - hint: 'Original text: én beter voor je portemonnee, key: 600afd08'
+            label: Text
+            name: 600afd08
+            widget: string
+          - hint: >-
+              Original text: Door te isoleren verlaagt je onmiddellijk je
+              energiefactuur. Hoe dikker de isolatielaag, hoe groter de
+              besparing. Met papiervlokken kan je trouwens de dikte heel
+              flexibel bepalen in functie van de beschikbare ruimte of gewenste
+              R-waarde, zonder grote meerkost. Wie zelf de handen uit de mouwen
+              wil steken, kan ook op werkuren besparen. Onder onze deskundige
+              leiding kan je (een deel van) het luchtdichtingswerk doen en zo de
+              kosten nog drukken., key: -13b55e8c
+            label: Text
+            name: '-13b55e8c'
+            widget: text
+          - hint: 'Original text: nog vragen ?, key: -34b4e67c'
+            label: Text
+            name: '-34b4e67c'
+            widget: string
+          - hint: 'Original text: verhalen en getuigenissen, key: 6969815c'
+            label: Text
+            name: 6969815c
+            widget: string
+          - hint: 'Original text: No items found., key: 3d503d2b'
+            label: Text
+            name: 3d503d2b
+            widget: string
+          - hint: 'Original text: veelzijdige toepassingen, key: 43df0048'
+            label: Text
+            name: 43df0048
+            widget: string
+          - hint: >-
+              Original text: Papiercellulose wordt inblazen tussen dakbalken en
+              roosteringen. Dit zorgt voor een perfecte vulling en veelzijdige
+              toepassingen., key: 277820c2
+            label: Text
+            name: 277820c2
+            widget: text
+          - hint: 'Original text: 1 buitenzijde schuindak, key: 73fbd552'
+            label: Text
+            name: 73fbd552
+            widget: string
+          - hint: 'Original text: 2 binnenzijde schuindak, key: 4b7ffe2a'
+            label: Text
+            name: 4b7ffe2a
+            widget: string
+          - hint: 'Original text: 3 zoldervloer, key: 240801df'
+            label: Text
+            name: 240801df
+            widget: string
+          - hint: 'Original text: 4 plafond, key: -3679448'
+            label: Text
+            name: '-3679448'
+            widget: string
+          - hint: 'Original text: 5 buitenzijde muur, key: -7c335b45'
+            label: Text
+            name: '-7c335b45'
+            widget: string
+          - hint: 'Original text: 6 binnenzijde muur, key: -1ba7ab1d'
+            label: Text
+            name: '-1ba7ab1d'
+            widget: string
+          - hint: 'Original text: 7 binnenmuur, key: -57c6ab02'
+            label: Text
+            name: '-57c6ab02'
+            widget: string
+          - hint: 'Original text: 8 vloer, key: -30565b02'
+            label: Text
+            name: '-30565b02'
+            widget: string
+          - hint: 'Original text: 9 kelder, key: 7a42d246'
+            label: Text
+            name: 7a42d246
+            widget: string
+          - hint: 'Original text: 10 platdak, key: 6d9b88fe'
+            label: Text
+            name: 6d9b88fe
+            widget: string
+          - hint: >-
+              Original text: Nullam quis risus eget urna mollis ornare vel eu
+              leo. Donec sed odio dui. Donec id elit non mi porta gravida at
+              eget metus. Sed posuere consectetur est at lobortis. Sed posuere
+              consectetur est at lobortis. Aenean eu leo quam. Pellentesque
+              ornare sem lacinia quam venenatis vestibulum., key: 32a4cf00
+            label: Text
+            name: 32a4cf00
+            widget: text
+          - hint: 'Original text: het belang van luchtdichting, key: -7b220ce5'
+            label: Text
+            name: '-7b220ce5'
+            widget: string
+          - hint: >-
+              Original text: Isolatie is pas efficiënt in combinatie met een
+              perfecte luchtdichting!, key: dd85082
+            label: Text
+            name: dd85082
+            widget: string
+          - hint: 'Original text: waarom luchtdicht …, key: 7f329b71'
+            label: Text
+            name: 7f329b71
+            widget: string
+          - hint: >-
+              Original text: Isoleren alleen is niet voldoende. Als uw dure
+              opgewarmde lucht zomaar ontsnapt langs onzichtbare spleten en
+              kieren, is dat niet enkel erg oncomfortabel, het kan ook tot
+              bouwschade leiden, en bovenal vliegt je geld letterlijk naar
+              buiten! Daarom moet een woning luchtdicht zijn: het is immers de
+              luchtdichting die de isolatie optimaal laat presteren. Net als met
+              een lekker warme trui: die blijkt toch niet zo warm te zijn als de
+              koude wind er zo doorheen kan blazen. Een winddichte jas is echt
+              wel nodig., key: -3909b1c7
+            label: Text
+            name: '-3909b1c7'
+            widget: text
+          - hint: 'Original text: en dampopen?, key: 1f0d319e'
+            label: Text
+            name: 1f0d319e
+            widget: string
+          - hint: >-
+              Original text: In een (slechte) regenjas ga je zweten. Hetzelfde
+              gebeurt in je huis. Vocht in constructies veroorzaakt bouwschade
+              en het rendement van de isolatie gaat achteruit. Daarom maken we
+              gebruik van een damprem: die is winddicht, maar laat wel waterdamp
+              naar buiten ontsnappen [De buitenkant van de isolatie schil is
+              meer dampopen dan de binnenkant]. Dampopen isolatie (zoals
+              cellulose) laat waterdamp nagenoeg ongehinderd door. Waterdamp zal
+              dan ook niet vlug condenseren. Jouw isolatie is veilig en rendeert
+              optimaal. [cellulose kan 20% van zijn eigen gewicht aan vocht
+              opnemen zonder aan isolatievermogen in te boeten], key: 44f53872
+            label: Text
+            name: 44f53872
+            widget: text
+          - hint: 'Original text: perfecte uitvoering, key: -79c9d83c'
+            label: Text
+            name: '-79c9d83c'
+            widget: string
+          - hint: >-
+              Original text: Luchtdichting is een secuur en arbeidsintensief
+              werk. Alle naden, kieren, gaten moeten nauwkeurig en met de juiste
+              materialen afgekleefd worden. Hoe beter dat gebeurt, hoe minder
+              warmte er verloren gaat. De resultaten van dat werk zijn duidelijk
+              meetbaar met een Blowerdoortest., key: 2e75d48
+            label: Text
+            name: 2e75d48
+            widget: text
+          - hint: 'Original text: à la carte, key: 63483a1a'
+            label: Text
+            name: 63483a1a
+            widget: string
+          - hint: >-
+              Original text: Wij kunnen de luchtdichting uitvoeren als onderdeel
+              van een totaalpakket isolatie-luchtdichting-afwerking, , key:
+              5d16c1b7
+            label: Text
+            name: 5d16c1b7
+            widget: text
+          - hint: >-
+              Original text: aan zelfplaatsers leveren we de nodige materialen,
+              uiteraard mét plaatsingsadvies, , key: 6d04c87
+            label: Text
+            name: 6d04c87
+            widget: string
+          - hint: 'Original text: ‍, key: 200d'
+            label: Text
+            name: 200d
+            widget: string
+          - hint: >-
+              Original text: in de loop van uw bouwproces kunnen we met onze
+              Blowerdoortest tijdig luchtlekken opsporen en verhelpen,, key:
+              -29cf0ccd
+            label: Text
+            name: '-29cf0ccd'
+            widget: text
+          - hint: >-
+              Original text: wij verzorgen het officieel blowerdoor-testverslag
+              voor uw EPB., key: 451724d2
+            label: Text
+            name: 451724d2
+            widget: string
+          - hint: >-
+              Original text: de blowerdoortest … de proef op de som, key:
+              -56b9d924
+            label: Text
+            name: '-56b9d924'
+            widget: string
+          - hint: >-
+              Original text: Met een speciale ventilator, de blowerdoor,
+              aangestuurd door speciale software, brengen we de woning
+              beurtelings in over- en onderdruk. Zo kunnen we luchtlekken
+              opsporen en deze tijdig aanpakken. Anderzijds kunnen we op deze
+              manier ook berekenen hoeveel lucht er per uur door de
+              'luchtdichte' schil kan doordringen. Uitgedrukt per uur geeft ons
+              dit de n-waarde: het aantal luchtverversingen per uur. Hoe lager
+              de n-waarde, hoe beter. Voor een passiefwoning is de waarde
+              officieel vastgesteld op maximum 0,60/h. In de praktijk kunnen we
+              wel n-waardes van 0,3 of 0,4 behalen., key: -5027e3ef
+            label: Text
+            name: '-5027e3ef'
+            widget: text
+          - hint: 'Original text: waarom, key: -2f6a9467'
+            label: Text
+            name: '-2f6a9467'
+            widget: string
+          - hint: 'Original text: voordelen, key: 1a3a8118'
+            label: Text
+            name: 1a3a8118
+            widget: string
+          - hint: 'Original text: toepassingen, key: 3489c490'
+            label: Text
+            name: 3489c490
+            widget: string
+          - hint: 'Original text: lichtdichting, key: -424f9256'
+            label: Text
+            name: '-424f9256'
+            widget: string
+          - hint: 'Original text: dakwerken, key: 341d897e'
+            label: Text
+            name: 341d897e
+            widget: string
+          - hint: 'Original text: gevel, key: 5db25ff'
+            label: Text
+            name: 5db25ff
+            widget: string
+          - hint: 'Original text: dak, key: 1838e'
+            label: Text
+            name: 1838e
+            widget: string
+          - hint: 'Original text: binnen, key: -52c9c4d0'
+            label: Text
+            name: '-52c9c4d0'
+            widget: string
+          - hint: 'Original text: professioneel, key: 50eb3550'
+            label: Text
+            name: 50eb3550
+            widget: string
+          - hint: 'Original text: particulier, key: 2e6554b2'
+            label: Text
+            name: 2e6554b2
+            widget: string
+          - hint: 'Original text: hulp bij doehetzelf, key: 5045eeee'
+            label: Text
+            name: 5045eeee
+            widget: string
+          - hint: 'Original text: over ons, key: 1f71ed28'
+            label: Text
+            name: 1f71ed28
+            widget: string
+          - hint: 'Original text: verhalen, key: -76f03347'
+            label: Text
+            name: '-76f03347'
+            widget: string
+          - hint: 'Original text: veel gestelde vragen, key: -4a382de6'
+            label: Text
+            name: '-4a382de6'
+            widget: string
+          - hint: 'Original text: jobs, key: 31dc56'
+            label: Text
+            name: 31dc56
+            widget: string
+          - hint: 'Original text: luchtdichting, key: 1a042e1e'
+            label: Text
+            name: 1a042e1e
+            widget: string
+          - hint: 'Original text: doe-het-zelf, key: -237bddf2'
+            label: Text
+            name: '-237bddf2'
+            widget: string
+          - hint: 'Original text: verhalen & getuigenissen, key: 5072302b'
+            label: Text
+            name: 5072302b
+            widget: string
+          - hint: 'Original text: veel gestelde verhalen, key: -2f86a0f8'
+            label: Text
+            name: '-2f86a0f8'
+            widget: string
+          - hint: 'Original text: Eco-dé zoekt nieuwe collega‘s, key: -5033d53'
+            label: Text
+            name: '-5033d53'
+            widget: string
+          - hint: 'Original text: Talent in isoleren (m/v), key: 5560e301'
+            label: Text
+            name: '5560e301'
+            widget: string
+          - hint: 'Original text: Dakwerker-schrijnwerker (m/v), key: 25a95539'
+            label: Text
+            name: 25a95539
+            widget: string
+          - hint: 'Original text: nog vragen?, key: -4c05d5c6'
+            label: Text
+            name: '-4c05d5c6'
+            widget: string
+          - hint: 'Original text: Heb je nog vragen over isoleren?, key: 2006f407'
+            label: Text
+            name: 2006f407
+            widget: string
+          - hint: >-
+              Original text: als professioneel, particulier of doe-het-zelver?,
+              key: -2599087b
+            label: Text
+            name: '-2599087b'
+            widget: string
+          - hint: 'Original text: eco-dé, key: -4e00473f'
+            label: Text
+            name: '-4e00473f'
+            widget: string
+          - hint: >-
+              Original text: Eco-dé biedt je economische en ecologische isolatie
+              aan. Cellulose-vlokken zorgen steeds voor een aangenaam “klimaat”,
+              waar we ze ook gebruiken., key: -7d5307d1
+            label: Text
+            name: '-7d5307d1'
+            widget: text
+          - hint: 'Original text: Contact, key: -64104400'
+            label: Text
+            name: '-64104400'
+            widget: string
+          - hint: 'Original text: (+32) 0498 47 76 25, key: 72480b'
+            label: Text
+            name: 72480b
+            widget: string
+          - hint: 'Original text: info@ecologisch-isoleren.be, key: -5447e525'
+            label: Text
+            name: '-5447e525'
+            widget: string
+          - hint: 'Original text: Langbaan 6, key: 4bde5150'
+            label: Text
+            name: 4bde5150
+            widget: string
+          - hint: |-
+              Original text: 2150 Borsbeek
+                          , key: -5c1df8b3
+            label: Text
+            name: '-5c1df8b3'
+            widget: string
+          - hint: 'Original text: Verstuur bericht, key: 185960c3'
+            label: Text
+            name: 185960c3
+            widget: string
+          - hint: >-
+              Original text: Bedankt! We laten je snel iets weten!, key:
+              2387234a
+            label: Text
+            name: 2387234a
+            widget: string
+          - hint: 'Original text: Oops! Er liep iets mis, key: 604d1cd9'
+            label: Text
+            name: 604d1cd9
+            widget: string
+          - hint: 'Original text: probeer later nog eens opnieuw, key: 49fc5381'
+            label: Text
+            name: 49fc5381
+            widget: string
+          - hint: 'Original text: ©lu’cifer - 2021 | built with , key: 2bc60bbe'
+            label: Text
+            name: 2bc60bbe
+            widget: string
+          - hint: 'Original text: webflow, key: 48f40282'
+            label: Text
+            name: 48f40282
+            widget: string
+          - hint: 'Original text:  by, key: 8477'
+            label: Text
+            name: '8477'
+            widget: string
+          - hint: 'Original text:  lu’cifer, key: 542747dd'
+            label: Text
+            name: 542747dd
+            widget: string
+          - hint: 'Original text: contact, key: 38b72420'
+            label: Text
+            name: 38b72420
+            widget: string
+          - hint: 'Original text: dakwerken en gevelbekleding, key: 27b8b395'
+            label: Text
+            name: 27b8b395
+            widget: string
+          - hint: 'Original text: eco-dé maakt het werk helemaal af, key: 699ba529'
+            label: Text
+            name: 699ba529
+            widget: string
+          - hint: >-
+              Original text: Isoleren zonder luchtdichte afwerking heeft weinig
+              zin. Veel gebouwen en woningen verliezen tot soms wel 25% van hun
+              warmte via kieren en spleten. Luchtdicht bouwen helpt om
+              energieverlies tegen te gaan. Daarom besteedt eco-dé extra veel
+              aandacht aan afwerking en luchtdichting., key: 4670383e
+            label: Text
+            name: 4670383e
+            widget: text
+          - hint: 'Original text: VAN VOORBEREIDING TOT AFWERKING, key: 5b139c67'
+            label: Text
+            name: 5b139c67
+            widget: string
+          - hint: 'Original text: goede voorbereiding, key: 37411333'
+            label: Text
+            name: '37411333'
+            widget: string
+          - hint: >-
+              Original text: Goed begonnen, is half gewonnen! Een mooie
+              eindresultaat begint met een goede voorbereiding en een perfecte
+              constructie. Met een laser en waterpas controleren wij uw dak,
+              muren en plafonds. Dit gebeurt vaak nog voor we de luchtdichting
+              plaatsen. Zo mag je zeker zijn van een strak resultaat., key:
+              -7eacb0e0
+            label: Text
+            name: '-7eacb0e0'
+            widget: text
+          - hint: 'Original text: buitengevel afgewerkt met hout, key: 2b78bfc8'
+            label: Text
+            name: 2b78bfc8
+            widget: string
+          - hint: 'Original text: Thermowood, key: -51687f30'
+            label: Text
+            name: '-51687f30'
+            widget: string
+          - hint: >-
+              Original text: Buitengevels kunnen wij afwerken met hout. Eco-dé
+              gebruikt [meestal] Thermowood. Thermowood is Noors dennenhout dat
+              een thermische behandeling onderging en daardoor zijn duurzaamheid
+              verhoogt tot klasse 1/2, vergelijkbaar met teak, ceder, bankirai,
+              enz. Tevens worden enkele belangrijke eigenschappen aan het hout
+              toegevoegd., key: -2337d79c
+            label: Text
+            name: '-2337d79c'
+            widget: text
+          - hint: >-
+              Original text: Uniek aan het productieproces is dat de thermische
+              behandeling in één vloeiende beweging gebeurt. Vanaf de selectie
+              en het kappen van de bomen tot en met het afgewerkt product is er
+              geen onderbreking., key: -5f5bd598
+            label: Text
+            name: '-5f5bd598'
+            widget: text
+          - hint: 'Original text: ook platte en schuine daken, key: -2d4eb5d2'
+            label: Text
+            name: '-2d4eb5d2'
+            widget: string
+          - hint: 'Original text: Platte daken, key: 23fcee97'
+            label: Text
+            name: 23fcee97
+            widget: string
+          - hint: >-
+              Original text: Eco-dé kan probleemloos cellulose-isolatie inblazen
+              in de constructie van uw plat dak. Indien gewenst, werken wij ook
+              de dakbedekking af., key: 133077ae
+            label: Text
+            name: 133077ae
+            widget: text
+          - hint: 'Original text: Schuine daken, key: -1667666'
+            label: Text
+            name: '-1667666'
+            widget: string
+          - hint: >-
+              Original text: Eco-dé kan probleemloos cellulose-isolatie inblazen
+              in de constructie van uw schuin dak. Indien gewenst, werken wij
+              ook de dakbedekking af., key: -27be01bf
+            label: Text
+            name: '-27be01bf'
+            widget: text
+          - hint: 'Original text: Dakvensters, key: -67f24b6c'
+            label: Text
+            name: '-67f24b6c'
+            widget: string
+          - hint: >-
+              Original text: Bij de werkzaamheden aan uw dak kan u door Eco-dé
+              ook dakvensters laten plaatsen of bestaande dakramen laten
+              vervangen., key: 1ced4fb0
+            label: Text
+            name: 1ced4fb0
+            widget: text
+          - hint: 'Original text: bekijk hieronder, key: 7c022c66'
+            label: Text
+            name: 7c022c66
+            widget: string
+          - hint: >-
+              Original text: Om isolatiewerken nog toegankelijker en beter
+              betaalbaar te maken, hebben we ons gespecialiseerd in hulp aan
+              zelfplaatsers. Je maakt gebruik van professioneel materiaal en je
+              wordt door eco-dé gecoacht: a winning combination!, key: 4e6a9ece
+            label: Text
+            name: 4e6a9ece
+            widget: text
+          - hint: 'Original text: hulp aan zelfplaatsers, key: -308326bb'
+            label: Text
+            name: '-308326bb'
+            widget: string
+          - hint: 'Original text: coaching, key: -38edeaf8'
+            label: Text
+            name: '-38edeaf8'
+            widget: string
+          - hint: >-
+              Original text: je krijgt van ons alle nodige uitleg [we geven een
+              demonstratie ter plekke], key: 54e4a602
+            label: Text
+            name: 54e4a602
+            widget: string
+          - hint: >-
+              Original text: ​indien nodig nemen wij een aantal stappen in het
+              proces van isolatie-luchtdichting-afwerking op ons, maar de meeste
+              zijn vrij eenvoudig zelf uit te voeren, key: -4a5d5e50
+            label: Text
+            name: '-4a5d5e50'
+            widget: text
+          - hint: >-
+              Original text: in gezamenlijk overleg doen we kwaliteitscontroles
+              bij de diverse tussenstappen, key: dcc71df
+            label: Text
+            name: dcc71df
+            widget: string
+          - hint: 'Original text: handig, key: -48fd9233'
+            label: Text
+            name: '-48fd9233'
+            widget: string
+          - hint: 'Original text: geen gedoe: , key: -1c148d57'
+            label: Text
+            name: '-1c148d57'
+            widget: string
+          - hint: >-
+              Original text: het materiaal wordt aan huis geleverd, key:
+              -6b4a70e0
+            label: Text
+            name: '-6b4a70e0'
+            widget: string
+          - hint: 'Original text: vlot werken: , key: -168d8505'
+            label: Text
+            name: '-168d8505'
+            widget: string
+          - hint: >-
+              Original text: je gebruikt onze professionele gereedschappen, key:
+              58d1c906
+            label: Text
+            name: 58d1c906
+            widget: string
+          - hint: 'Original text: hulp: , key: -47e47dc9'
+            label: Text
+            name: '-47e47dc9'
+            widget: string
+          - hint: >-
+              Original text: je krijgt ons advies en hulp bij het gebruik van de
+              materialen en gereedschappen, key: -6d401434
+            label: Text
+            name: '-6d401434'
+            widget: string
+          - hint: 'Original text: makkelijk: , key: -9f9b0ab'
+            label: Text
+            name: '-9f9b0ab'
+            widget: string
+          - hint: >-
+              Original text: je werkt op je eigen ritme, wanneer het jou
+              uitkomt, key: -66f9845d
+            label: Text
+            name: '-66f9845d'
+            widget: string
+          - hint: 'Original text: voordelig, key: 1a3a818d'
+            label: Text
+            name: 1a3a818d
+            widget: string
+          - hint: >-
+              Original text: je betaalt enkel wat je gebruikt, resten nemen wij
+              terug mee, key: -508e5021
+            label: Text
+            name: '-508e5021'
+            widget: string
+          - hint: 'Original text: wat je zelf doet, doe je gratis, key: -5ba4e733'
+            label: Text
+            name: '-5ba4e733'
+            widget: string
+          - hint: >-
+              Original text: je mag gerust zijn - en trots ! - op een perfect
+              eindresultaat, key: 2bfbdd9e
+            label: Text
+            name: 2bfbdd9e
+            widget: string
+          - hint: 'Original text: enkele referenties, key: 4a9bfce8'
+            label: Text
+            name: 4a9bfce8
+            widget: string
+          - hint: >-
+              Original text: Met onze jarenlange ervaring hebben we een stevige
+              reputatie opgebouwd. , key: -3f1bc7ff
+            label: Text
+            name: '-3f1bc7ff'
+            widget: string
+          - hint: 'Original text: een offerte of een afspraak?, key: -16bb5592'
+            label: Text
+            name: '-16bb5592'
+            widget: string
+          - hint: 'Original text: Styleguide, key: 7f9ce00b'
+            label: Text
+            name: 7f9ce00b
+            widget: string
+          - hint: 'Original text: Client-first Version 1.0, key: 65bb7379'
+            label: Text
+            name: 65bb7379
+            widget: string
+          - hint: 'Original text: Headings, key: -3e9d592f'
+            label: Text
+            name: '-3e9d592f'
+            widget: string
+          - hint: 'Original text: Heading 1, key: 6af22973'
+            label: Text
+            name: 6af22973
+            widget: string
+          - hint: 'Original text: Heading 2, key: 6af22974'
+            label: Text
+            name: 6af22974
+            widget: string
+          - hint: 'Original text: Heading 3, key: 6af22975'
+            label: Text
+            name: 6af22975
+            widget: string
+          - hint: 'Original text: Heading 4, key: 6af22976'
+            label: Text
+            name: 6af22976
+            widget: string
+          - hint: 'Original text: Heading 5, key: 6af22977'
+            label: Text
+            name: 6af22977
+            widget: string
+          - hint: 'Original text: Heading 6, key: 6af22978'
+            label: Text
+            name: 6af22978
+            widget: string
+          - hint: 'Original text: Heading classes, key: -5cd41818'
+            label: Text
+            name: '-5cd41818'
+            widget: string
+          - hint: 'Original text: heading-xxlarge, key: -6f07b490'
+            label: Text
+            name: '-6f07b490'
+            widget: string
+          - hint: 'Original text: heading-xlarge, key: -3e113412'
+            label: Text
+            name: '-3e113412'
+            widget: string
+          - hint: 'Original text: heading-large, key: -2bf8bc50'
+            label: Text
+            name: '-2bf8bc50'
+            widget: string
+          - hint: 'Original text: heading-medium, key: -5137ea60'
+            label: Text
+            name: '-5137ea60'
+            widget: string
+          - hint: 'Original text: heading-small, key: -2b90e284'
+            label: Text
+            name: '-2b90e284'
+            widget: string
+          - hint: 'Original text: heading-xsmall, key: -3da95a46'
+            label: Text
+            name: '-3da95a46'
+            widget: string
+          - hint: 'Original text: Text size, key: 3621def4'
+            label: Text
+            name: 3621def4
+            widget: string
+          - hint: 'Original text: text-size-xxlarge, key: 41e6af0f'
+            label: Text
+            name: 41e6af0f
+            widget: string
+          - hint: 'Original text: text-size-xlarge, key: -301a0791'
+            label: Text
+            name: '-301a0791'
+            widget: string
+          - hint: 'Original text: text-size-large, key: -75d7fcf1'
+            label: Text
+            name: '-75d7fcf1'
+            widget: string
+          - hint: 'Original text: text-size-medium, key: -4340bddf'
+            label: Text
+            name: '-4340bddf'
+            widget: string
+          - hint: 'Original text: text-size-normal, key: -40f8906d'
+            label: Text
+            name: '-40f8906d'
+            widget: string
+          - hint: 'Original text: text-size-small, key: -75702325'
+            label: Text
+            name: '-75702325'
+            widget: string
+          - hint: 'Original text: text-size-tiny, key: -6f243f54'
+            label: Text
+            name: '-6f243f54'
+            widget: string
+          - hint: 'Original text: Text style, key: -71e102e2'
+            label: Text
+            name: '-71e102e2'
+            widget: string
+          - hint: 'Original text: text-style-link, key: 4f9fb336'
+            label: Text
+            name: 4f9fb336
+            widget: string
+          - hint: 'Original text: text-style-italic, key: -1e09a194'
+            label: Text
+            name: '-1e09a194'
+            widget: string
+          - hint: 'Original text: text-style-allcaps, key: -576c60ba'
+            label: Text
+            name: '-576c60ba'
+            widget: string
+          - hint: 'Original text: text-style-quote, key: -5b5d5d40'
+            label: Text
+            name: '-5b5d5d40'
+            widget: string
+          - hint: 'Original text: text-style-strikethrough, key: -613aa0e9'
+            label: Text
+            name: '-613aa0e9'
+            widget: string
+          - hint: 'Original text: text-style-muted, key: -5b95aa51'
+            label: Text
+            name: '-5b95aa51'
+            widget: string
+          - hint: 'Original text: text-color-black, key: -1014878b'
+            label: Text
+            name: '-1014878b'
+            widget: string
+          - hint: 'Original text: text-color-white, key: -eee4b61'
+            label: Text
+            name: '-eee4b61'
+            widget: string
+          - hint: 'Original text: text-style-nowrap, key: -15bdc639'
+            label: Text
+            name: '-15bdc639'
+            widget: string
+          - hint: 'Original text: text-style-2lines, key: -7c513db7'
+            label: Text
+            name: '-7c513db7'
+            widget: string
+          - hint: 'Original text: text-style-3lines, key: -7a9c6518'
+            label: Text
+            name: '-7a9c6518'
+            widget: string
+          - hint: 'Original text: Text weight, key: 3bb950ab'
+            label: Text
+            name: 3bb950ab
+            widget: string
+          - hint: 'Original text: text-weight-xbold, key: -6542b3f8'
+            label: Text
+            name: '-6542b3f8'
+            widget: string
+          - hint: 'Original text: text-weight-bold, key: 704ee01a'
+            label: Text
+            name: 704ee01a
+            widget: string
+          - hint: 'Original text: text-weight-semibold, key: -399389f8'
+            label: Text
+            name: '-399389f8'
+            widget: string
+          - hint: 'Original text: text-weight-medium, key: -55b3dc36'
+            label: Text
+            name: '-55b3dc36'
+            widget: string
+          - hint: 'Original text: text-weight-normal, key: -536baec4'
+            label: Text
+            name: '-536baec4'
+            widget: string
+          - hint: 'Original text: text-weight-light, key: -65e8bddf'
+            label: Text
+            name: '-65e8bddf'
+            widget: string
+          - hint: 'Original text: Text alignment, key: 3bec02d0'
+            label: Text
+            name: 3bec02d0
+            widget: string
+          - hint: 'Original text: text-align-left, key: 91bde6f'
+            label: Text
+            name: 91bde6f
+            widget: string
+          - hint: 'Original text: text-align-center, key: 224610bd'
+            label: Text
+            name: 224610bd
+            widget: string
+          - hint: 'Original text: text-align-right, key: 1ab650b4'
+            label: Text
+            name: 1ab650b4
+            widget: string
+          - hint: 'Original text: Rich text, key: 41c115d1'
+            label: Text
+            name: 41c115d1
+            widget: string
+          - hint: 'Original text: This is a block quote, key: 4b1bdc96'
+            label: Text
+            name: 4b1bdc96
+            widget: string
+          - hint: >-
+              Original text: A rich text element can be used with static or
+              dynamic content. For static content, just drop it into any page
+              and begin editing. For dynamic content, add a rich text field to
+              any collection and then connect a rich text element to that field
+              in the settings panel. Voila!, key: -a016b40
+            label: Text
+            name: '-a016b40'
+            widget: text
+          - hint: 'Original text: This is a link inside of a rich text, key: 3a72e61a'
+            label: Text
+            name: 3a72e61a
+            widget: string
+          - hint: 'Original text: List item, key: 2aff8d35'
+            label: Text
+            name: 2aff8d35
+            widget: string
+          - hint: 'Original text: Image inside of a richtext, key: 302a9f72'
+            label: Text
+            name: 302a9f72
+            widget: string
+          - hint: 'Original text: Colors, key: 78a3a990'
+            label: Text
+            name: 78a3a990
+            widget: string
+          - hint: 'Original text: Black, key: 3d49fdf'
+            label: Text
+            name: 3d49fdf
+            widget: string
+          - hint: 'Original text: #24292e, key: -6c3f39e1'
+            label: Text
+            name: '-6c3f39e1'
+            widget: string
+          - hint: 'Original text: Grey, key: 21feff'
+            label: Text
+            name: 21feff
+            widget: string
+          - hint: 'Original text: #f6f8fa, key: -134f64c0'
+            label: Text
+            name: '-134f64c0'
+            widget: string
+          - hint: 'Original text: Whitesmoke, key: -78adf4fa'
+            label: Text
+            name: '-78adf4fa'
+            widget: string
+          - hint: 'Original text: #fafbfc, key: -10f0d469'
+            label: Text
+            name: '-10f0d469'
+            widget: string
+          - hint: 'Original text: Border, key: 76f1604c'
+            label: Text
+            name: 76f1604c
+            widget: string
+          - hint: 'Original text: #e1e4e8, key: -154b368f'
+            label: Text
+            name: '-154b368f'
+            widget: string
+          - hint: 'Original text: Blue, key: 1fa47a'
+            label: Text
+            name: 1fa47a
+            widget: string
+          - hint: 'Original text: #0366d6, key: -6fb53688'
+            label: Text
+            name: '-6fb53688'
+            widget: string
+          - hint: 'Original text: Blue hover, key: 1d15be16'
+            label: Text
+            name: 1d15be16
+            widget: string
+          - hint: 'Original text: #1158c7, key: -6e1cf9e6'
+            label: Text
+            name: '-6e1cf9e6'
+            widget: string
+          - hint: 'Original text: Success green, key: e930486'
+            label: Text
+            name: e930486
+            widget: string
+          - hint: 'Original text: #28a745, key: -6bf185e0'
+            label: Text
+            name: '-6bf185e0'
+            widget: string
+          - hint: 'Original text: Error red, key: -75010da7'
+            label: Text
+            name: '-75010da7'
+            widget: string
+          - hint: 'Original text: #d73a49, key: -16c199b7'
+            label: Text
+            name: '-16c199b7'
+            widget: string
+          - hint: 'Original text: Background classes, key: -6d7628ac'
+            label: Text
+            name: '-6d7628ac'
+            widget: string
+          - hint: 'Original text: background-grey, key: 4b7e641e'
+            label: Text
+            name: 4b7e641e
+            widget: string
+          - hint: 'Original text: background-whitesmoke, key: 1aefdce5'
+            label: Text
+            name: 1aefdce5
+            widget: string
+          - hint: 'Original text: Buttons, key: 719b5761'
+            label: Text
+            name: 719b5761
+            widget: string
+          - hint: 'Original text: Clone it, key: 44b632ee'
+            label: Text
+            name: 44b632ee
+            widget: string
+          - hint: 'Original text: Client First builder, key: 595b3a96'
+            label: Text
+            name: 595b3a96
+            widget: string
+          - hint: 'Original text: Forms, key: 40e9c0f'
+            label: Text
+            name: 40e9c0f
+            widget: string
+          - hint: 'Original text: Form input, key: 1aa4b18e'
+            label: Text
+            name: 1aa4b18e
+            widget: string
+          - hint: 'Original text: Input area, key: -3a076cbd'
+            label: Text
+            name: '-3a076cbd'
+            widget: string
+          - hint: 'Original text: Checkbox label, key: -7004a389'
+            label: Text
+            name: '-7004a389'
+            widget: string
+          - hint: 'Original text: Radio label , key: -7c75586f'
+            label: Text
+            name: '-7c75586f'
+            widget: string
+          - hint: 'Original text: (only clickable on published site), key: -6b5b9867'
+            label: Text
+            name: '-6b5b9867'
+            widget: string
+          - hint: 'Original text: Awesome, you subscribed!, key: 64c422af'
+            label: Text
+            name: 64c422af
+            widget: string
+          - hint: 'Original text: Error! Please try again., key: -2543087e'
+            label: Text
+            name: '-2543087e'
+            widget: string
+          - hint: 'Original text: Icon classes, key: -69a02461'
+            label: Text
+            name: '-69a02461'
+            widget: string
+          - hint: 'Original text: Icons 1x1, key: 2584a884'
+            label: Text
+            name: 2584a884
+            widget: string
+          - hint: 'Original text: Social icons, key: 403eccc7'
+            label: Text
+            name: 403eccc7
+            widget: string
+          - hint: 'Original text: Container, key: 5ef36c61'
+            label: Text
+            name: 5ef36c61
+            widget: string
+          - hint: 'Original text: container-large, key: -28ba0911'
+            label: Text
+            name: '-28ba0911'
+            widget: string
+          - hint: 'Original text: container-medium, key: 135fca41'
+            label: Text
+            name: 135fca41
+            widget: string
+          - hint: 'Original text: container-small, key: -28522f45'
+            label: Text
+            name: '-28522f45'
+            widget: string
+          - hint: 'Original text: Max width, key: -1d39416'
+            label: Text
+            name: '-1d39416'
+            widget: string
+          - hint: 'Original text: max-width-xxsmall, key: -5d9457a9'
+            label: Text
+            name: '-5d9457a9'
+            widget: string
+          - hint: 'Original text: max-width-xsmall, key: 7890d33f'
+            label: Text
+            name: 7890d33f
+            widget: string
+          - hint: 'Original text: max-width-small, key: 3526ab57'
+            label: Text
+            name: 3526ab57
+            widget: string
+          - hint: 'Original text: max-width-medium, key: 65024325'
+            label: Text
+            name: '65024325'
+            widget: string
+          - hint: 'Original text: max-width-large, key: 34bed18b'
+            label: Text
+            name: 34bed18b
+            widget: string
+          - hint: 'Original text: max-width-xlarge, key: 7828f973'
+            label: Text
+            name: 7828f973
+            widget: string
+          - hint: 'Original text: max-width-xxlarge, key: -5dfc3175'
+            label: Text
+            name: '-5dfc3175'
+            widget: string
+          - hint: 'Original text: max-width-full, key: -ed2fdc1'
+            label: Text
+            name: '-ed2fdc1'
+            widget: string
+          - hint: 'Original text: max-width-full-tablet, key: 3ce671b4'
+            label: Text
+            name: 3ce671b4
+            widget: string
+          - hint: 'Original text: max-width-full-mobile-wide, key: 57250290'
+            label: Text
+            name: '57250290'
+            widget: string
+          - hint: 'Original text: max-width-full-mobile, key: 31b9c3f0'
+            label: Text
+            name: 31b9c3f0
+            widget: string
+          - hint: 'Original text: Margins, key: -6ac3379b'
+            label: Text
+            name: '-6ac3379b'
+            widget: string
+          - hint: 'Original text: margin-0, key: e81d7d1'
+            label: Text
+            name: e81d7d1
+            widget: string
+          - hint: 'Original text: margin-tiny, key: 381a4bbf'
+            label: Text
+            name: 381a4bbf
+            widget: string
+          - hint: 'Original text: margin-xxsmall, key: -56773f18'
+            label: Text
+            name: '-56773f18'
+            widget: string
+          - hint: 'Original text: margin-xsmall, key: -5dea1b72'
+            label: Text
+            name: '-5dea1b72'
+            widget: string
+          - hint: 'Original text: margin-small, key: -34dd4bd8'
+            label: Text
+            name: '-34dd4bd8'
+            widget: string
+          - hint: 'Original text: margin-medium, key: -7178ab8c'
+            label: Text
+            name: '-7178ab8c'
+            widget: string
+          - hint: 'Original text: margin-large, key: -354525a4'
+            label: Text
+            name: '-354525a4'
+            widget: string
+          - hint: 'Original text: margin-xlarge, key: -5e51f53e'
+            label: Text
+            name: '-5e51f53e'
+            widget: string
+          - hint: 'Original text: margin-xxlarge, key: -56df18e4'
+            label: Text
+            name: '-56df18e4'
+            widget: string
+          - hint: 'Original text: margin-huge, key: 3815036a'
+            label: Text
+            name: 3815036a
+            widget: string
+          - hint: 'Original text: margin-xhuge, key: -3498d1bc'
+            label: Text
+            name: '-3498d1bc'
+            widget: string
+          - hint: 'Original text: margin-xxhuge, key: -5da5a156'
+            label: Text
+            name: '-5da5a156'
+            widget: string
+          - hint: 'Original text: margin-custom1, key: 4d8abdc1'
+            label: Text
+            name: 4d8abdc1
+            widget: string
+          - hint: 'Original text: margin-custom2, key: 4d8abdc2'
+            label: Text
+            name: 4d8abdc2
+            widget: string
+          - hint: 'Original text: margin-custom3, key: 4d8abdc3'
+            label: Text
+            name: 4d8abdc3
+            widget: string
+          - hint: 'Original text: margin-top, key: 756c34b6'
+            label: Text
+            name: 756c34b6
+            widget: string
+          - hint: 'Original text: margin-right, key: -34ed1ec3'
+            label: Text
+            name: '-34ed1ec3'
+            widget: string
+          - hint: 'Original text: margin-bottom, key: 7c565f2a'
+            label: Text
+            name: 7c565f2a
+            widget: string
+          - hint: 'Original text: margin-left, key: 381698c6'
+            label: Text
+            name: 381698c6
+            widget: string
+          - hint: 'Original text: margin-horizontal, key: 5585b9a3'
+            label: Text
+            name: 5585b9a3
+            widget: string
+          - hint: 'Original text: margin-vertical, key: -3698174b'
+            label: Text
+            name: '-3698174b'
+            widget: string
+          - hint: 'Original text: margin-0-all, key: -38aa8a5b'
+            label: Text
+            name: '-38aa8a5b'
+            widget: string
+          - hint: 'Original text: Paddings, key: 31f1aaa2'
+            label: Text
+            name: 31f1aaa2
+            widget: string
+          - hint: 'Original text: padding-0, key: -6b2e7e8c'
+            label: Text
+            name: '-6b2e7e8c'
+            widget: string
+          - hint: 'Original text: padding-tiny, key: 28881b3c'
+            label: Text
+            name: 28881b3c
+            widget: string
+          - hint: 'Original text: padding-xxsmall, key: -5bb29bb5'
+            label: Text
+            name: '-5bb29bb5'
+            widget: string
+          - hint: 'Original text: padding-xsmall, key: 2e4dc8cb'
+            label: Text
+            name: 2e4dc8cb
+            widget: string
+          - hint: 'Original text: padding-small, key: -17912bb5'
+            label: Text
+            name: '-17912bb5'
+            widget: string
+          - hint: 'Original text: padding-medium, key: 1abf38b1'
+            label: Text
+            name: 1abf38b1
+            widget: string
+          - hint: 'Original text: padding-large, key: -17f90581'
+            label: Text
+            name: '-17f90581'
+            widget: string
+          - hint: 'Original text: padding-xlarge, key: 2de5eeff'
+            label: Text
+            name: 2de5eeff
+            widget: string
+          - hint: 'Original text: padding-xxlarge, key: -5c1a7581'
+            label: Text
+            name: '-5c1a7581'
+            widget: string
+          - hint: 'Original text: padding-huge, key: 2882d2e7'
+            label: Text
+            name: 2882d2e7
+            widget: string
+          - hint: 'Original text: padding-xhuge, key: -174cb199'
+            label: Text
+            name: '-174cb199'
+            widget: string
+          - hint: 'Original text: padding-xxhuge, key: 2e9242e7'
+            label: Text
+            name: 2e9242e7
+            widget: string
+          - hint: 'Original text: padding-custom1, key: 484f6124'
+            label: Text
+            name: 484f6124
+            widget: string
+          - hint: 'Original text: padding-custom2, key: 484f6125'
+            label: Text
+            name: 484f6125
+            widget: string
+          - hint: 'Original text: padding-custom3, key: 484f6126'
+            label: Text
+            name: 484f6126
+            widget: string
+          - hint: 'Original text: padding-top, key: -5987fe67'
+            label: Text
+            name: '-5987fe67'
+            widget: string
+          - hint: 'Original text: padding-right, key: -17a0fea0'
+            label: Text
+            name: '-17a0fea0'
+            widget: string
+          - hint: 'Original text: padding-bottom, key: 88e4367'
+            label: Text
+            name: '88e4367'
+            widget: string
+          - hint: 'Original text: padding-left, key: 28846843'
+            label: Text
+            name: '28846843'
+            widget: string
+          - hint: 'Original text: padding-horizontal, key: 7e873760'
+            label: Text
+            name: '7e873760'
+            widget: string
+          - hint: 'Original text: padding-vertical, key: 2737b1b2'
+            label: Text
+            name: 2737b1b2
+            widget: string
+          - hint: 'Original text: padding-0-all, key: -1b5e6a38'
+            label: Text
+            name: '-1b5e6a38'
+            widget: string
+          - hint: 'Original text: Other global classes, key: 299f7fd9'
+            label: Text
+            name: 299f7fd9
+            widget: string
+          - hint: 'Original text: tips & info, key: 116c0250'
+            label: Text
+            name: 116c0250
+            widget: string
+          - hint: 'Original text: woordenlijst, key: 49b2197c'
+            label: Text
+            name: 49b2197c
+            widget: string
+          - hint: >-
+              Original text: Isolatie is pas efficiënt in combinatie met een
+              perfecte luchtdichting! Kieren, spleten of slecht aansluitende
+              isolatie kunnen de isolatiewaarde van de isolatie met meer dan 20%
+              verminderen en kunnen bovendien gebouwschade veroorzaken., key:
+              -2ba7c90d
+            label: Text
+            name: '-2ba7c90d'
+            widget: text
+          - hint: 'Original text: cellulose-isolatie, key: -70bccb25'
+            label: Text
+            name: '-70bccb25'
+            widget: string
+          - hint: >-
+              Original text: [Gerecycleerd papier of houtvezels]. Verkrijgbaar
+              in vlokken en matten. Toepassingen: thermische en akoestische
+              isolatie van hellende daken, houtskeletbouwmuren, tussenvloeren,
+              in plafonds en binnenmuren. Isoleren met papiervlokken leent zich
+              goed voor renovatie omdat je ook onregelmatig gevormde en slecht
+              toegankelijk ruimten kunt vullen. Lambdawaarde (W/mK): o,o38 a
+              o,o~o Warmteopslagcapaciteit c (J/kgK): t6oo a 215o Dampopenheid.,
+              key: -6c984bbe
+            label: Text
+            name: '-6c984bbe'
+            widget: text
+          - hint: >-
+              Original text: Cellulose-isolatie (papiervlokken) is een puur
+              recycled product. Van gerecycleerd kwaliteitspapier worden
+              onbrandbare cellulosevlokken gemaakt. Cellulose kwam in
+              vergelijkende tests al verschillende keren als beste uit de bus
+              omwille van zijn uitzonderlijke prijs/kwaliteit verhouding. (o.m.
+              Beter bouwen en verbouwen 253), key: 2127749f
+            label: Text
+            name: 2127749f
+            widget: text
+          - hint: 'Original text: isofloc dämmstatt, key: 277a663f'
+            label: Text
+            name: 277a663f
+            widget: string
+          - hint: 'Original text: ''cradle-to-cradle'', key: 2cd52e65'
+            label: Text
+            name: 2cd52e65
+            widget: string
+          - hint: >-
+              Original text: Het concept 'cradle to cradle' (C2C) of 'van wieg
+              tot wieg' slaat op producten die ofwel composteerbaar ofwel
+              eindeloos recycleerbaar zijn, zonder kwaliteitsverlies. Negatieve
+              gevolgen voor het milieu en onze gezondheid zijn uit den boze. Dit
+              in tegenstelling tot goederen die slechts 'van wieg tot graf'
+              meegaan en vroeg of laat moeilijk of niet verwerkbaar afval
+              opleveren. , key: -1910ff0b
+            label: Text
+            name: '-1910ff0b'
+            widget: text
+          - hint: >-
+              Original text: Materialen die de bio-ecologische sector dagelijks
+              gebruikt, passen volledig in de biologische kringloop van het
+              C2C-concept. Een 'ideaal' bio-ecologisch bouwmateriaal brengt dus
+              geen afval met zich mee, tenzij je compost onder deze categoric
+              rekent. Lees meer over dit onderwerp in het dossier 'Cradle to
+              cradle: kringlopen sluiten' dat je op www. vibe.be/downloads
+              gratis kunt binnenhalen., key: -578a3857
+            label: Text
+            name: '-578a3857'
+            widget: text
+          - hint: 'Original text: EPB, key: 10cf7'
+            label: Text
+            name: 10cf7
+            widget: string
+          - hint: >-
+              Original text: EPB of “Energie Prestatie en Binnenklimaat” is
+              sinds 1/1/2006 een verplicht energiedossier voor alle nieuwbouw-
+              en alle verbouwingsprojecten die een bouwvergunning vereisen. ,
+              key: -68ee6fae
+            label: Text
+            name: '-68ee6fae'
+            widget: text
+          - hint: >-
+              Original text: Een EPB beschrijft in welke mate het gebouw voldoet
+              aan het wettelijk bepaald niveau van energievoorziening en
+              –besparing, de zogenaamde EPB-eisen. , key: -65b5e4b6
+            label: Text
+            name: '-65b5e4b6'
+            widget: text
+          - hint: >-
+              Original text: De EPB-eisen worden uitgedrukt in een niveau van
+              energieverbruik (E-peil) en een graad van thermische isolatie
+              (K-peil). Sinds 1/1/2010 gelden de maximumnormen E80 en K45., key:
+              -29320977
+            label: Text
+            name: '-29320977'
+            widget: text
+          - hint: 'Original text: lage-energiewoning, key: 4935977f'
+            label: Text
+            name: 4935977f
+            widget: string
+          - hint: >-
+              Original text: We spreken van een lage-energiewoning als het
+              K-peil lager dan 30 is en het E-peil lager dan 60. Hiervoor heb je
+              in de eerste plaats extra isolatie nodig — zo'n 10 a 12 cm in de
+              vloer, 15 a 18 cm in de muur en 20 a 25 cm in het dak, een
+              gedetailleerde afwerking en hoogrendementsglas. , key: -3ca3b0bd
+            label: Text
+            name: '-3ca3b0bd'
+            widget: text
+          - hint: >-
+              Original text: Deze vrij bescheiden extra kost heb je snel
+              terugverdiend dankzij je lagere energiefactuur en de kleinere en
+              dus goedkopere verwarmingsinstallatie., key: 49d8de73
+            label: Text
+            name: 49d8de73
+            widget: text
+          - hint: 'Original text: K-peil [globaal isolatiepeil], key: -3331c652'
+            label: Text
+            name: '-3331c652'
+            widget: string
+          - hint: >-
+              Original text: Het K-peil of globaal isolatiepeil houdt rekening
+              met het warmteverlies van de verschillende constructieonderdelen
+              gekoppeld aan de compactheid van het gebouw. , key: 1cec199b
+            label: Text
+            name: 1cec199b
+            widget: text
+          - hint: >-
+              Original text: Net als op materiaalniveau geldt ook hier: hoe
+              lager de waarde, hoe beter, want er gaat minder warmte verloren.
+              Vanaf K30 verdient je huis de stempel 'lageenergiegebouw'., key:
+              2e1cb882
+            label: Text
+            name: 2e1cb882
+            widget: text
+          - hint: 'Original text: lambdawaarde, key: -2127733d'
+            label: Text
+            name: '-2127733d'
+            widget: string
+          - hint: "Original text: lambdawaarde | isolatiewaarde | L-waarde |\_ λ-waarde, key: -2ae26488"
+            label: Text
+            name: '-2ae26488'
+            widget: string
+          - hint: >-
+              Original text: De isolatiewaarde van een stof wordt technisch
+              uitgedrukt als de lambdawaarde (λ). Hoe minder warmte een
+              materiaal doorgeeft (verliest), hoe lager de lambdawaarde, hoe
+              beter het isoleert. De bio-ecologische isolatiematerialen scoren
+              goed hierin en zijn vergelijkbaar met glas- en rotswol., key:
+              638297a2
+            label: Text
+            name: 638297a2
+            widget: text
+          - hint: 'Original text: warmteopslagcapaciteit, key: -3ba8f259'
+            label: Text
+            name: '-3ba8f259'
+            widget: string
+          - hint: >-
+              Original text: Warmteopslagcapaciteit (c) of 'inertie'. Die geeft
+              aan in hoeverre een bouwmateriaal warmte kan opslaan. Denk maar
+              aan een kersenpitkussentje. Hoe groter de c-waarde, hoe groter de
+              warmtebufferende werking. , key: 31dcd3ca
+            label: Text
+            name: 31dcd3ca
+            widget: text
+          - hint: >-
+              Original text: De warmteopslagcapaciteit van nagroeibare
+              isolatiematerialen ligt tussen 1600 en 2100 J/kgK. Daarmee scoren
+              ze heel wat beter dan minerale (1030 J/kgK) en synthetische
+              materialen (1400-1450 J/kgK). Bio-ecologische isolatiematerialen
+              zorgen voor koelere kamers in de zomer. Petrochemische
+              isolatiematerialen houden de warmte niet buiten., key: 239fb821
+            label: Text
+            name: 239fb821
+            widget: text
+          - hint: 'Original text: dampopen, key: 5f90a52a'
+            label: Text
+            name: 5f90a52a
+            widget: string
+          - hint: >-
+              Original text: Inzake vochtregulering zijn bio-ecologische
+              materialen niet te verslaan. De diffusieweerstand van een
+              materiaal bepaalt in hoeverre het waterdamp (vocht) kan
+              transporteren. Materialen met een laag diffusieweerstandsgetal
+              (N), noemen we 'dampopen'. De μ-waarde van de meeste
+              bio-ecologische isolatiematerialen bedraagt 1 a 10. Kurk biedt
+              meer weerstand en is dus iets minder dampopen (5 a 30), maar
+              scoort hiermee nog altijd veel beter dan synthetische
+              isolatiematerialen met een N;waarde tussen 50 en 100., key:
+              45e130a4
+            label: Text
+            name: 45e130a4
+            widget: text
+          - hint: >-
+              Original text: Als je juist isoleert, kan de waterdamp die in elk
+              gebouw geproduceerd wordt naar buiten voordat ze in de constructie
+              kan condenseren. Hierdoor verminder je de kans op ongezonde
+              schimmels en bouwschade. Naast de typisch bio-ecologische
+              isolatiematerialen uit teeltbare grondstoffen zijn ook glaswol en
+              rotswol dampopen. Let wel: isolatiematerialen mag je niet blijvend
+              aan vocht blootstellen, zoals regen, grondvocht enz., key:
+              -4b0d5e84
+            label: Text
+            name: '-4b0d5e84'
+            widget: text
+          - hint: 'Original text: damprem, key: 55a9ddba'
+            label: Text
+            name: 55a9ddba
+            widget: string
+          - hint: >-
+              Original text: Een damprem is een folie of materiaal dat een
+              beperkte weerstand heeft tegen waterdamp. Indien u isolatie
+              plaatst moet u ook een damprem voorzien wilt u vochtproblemen
+              vermijden. Een degelijk geplaatste damprem zal de performantie van
+              uw isolatielaag sterk verhogen., key: -251de589
+            label: Text
+            name: '-251de589'
+            widget: text
+          - hint: >-
+              Original text: Een PE-folie (plastiek) of gelijksoortigen worden
+              niet beschouwd als damprem, maar als dampscherm. Vocht wordt in
+              het gebouw gevangen met kans op vochtopstapeling en als gevolg,
+              key: -2b7fd427
+            label: Text
+            name: '-2b7fd427'
+            widget: text
+          - hint: 'Original text: wist-je-dat …, key: -20a4ed5b'
+            label: Text
+            name: '-20a4ed5b'
+            widget: string
+          - hint: 'Original text: … over schimmel en knaagdieren, key: 250f29e'
+            label: Text
+            name: 250f29e
+            widget: string
+          - hint: >-
+              Original text: Isofloc is goed bestand tegen schimmel en
+              knaagdieren?, key: -21520fdf
+            label: Text
+            name: '-21520fdf'
+            widget: string
+          - hint: >-
+              Original text: Aan de vervezelde vlokken worden tijdens het
+              productieproces boorzouten en boorzuren toegevoegd. Dit om de
+              brandweerstand te vergroten, schimmelvorming tegen te gaan en
+              insecten te weren (ook termieten), key: -1f72d897
+            label: Text
+            name: '-1f72d897'
+            widget: text
+          - hint: 'Original text: … over brandveiligheid, key: -461da943'
+            label: Text
+            name: '-461da943'
+            widget: string
+          - hint: >-
+              Original text: Isofloc scoort goed op het vlak van
+              brandveiligheid?, key: 7dfc8df1
+            label: Text
+            name: 7dfc8df1
+            widget: string
+          - hint: >-
+              Original text: Bij brand gedraagt het materiaal zich zoals massief
+              hout: het biedt enorm goed weerstand. Zodanig dat constructies
+              geïsoleerd met Isofloc niet moeten onderdoen t.o.v. constructies
+              die geïsoleerd zijn met minerale wol. Naast de goede isolerende
+              eigenschappen waren het de tientallen brandproeven en attesten,
+              evenals geringere brandschade bij brand in gebouwen geïsoleerd met
+              isofloc, die de doorslag gaven bij de keuze van isofloc als
+              isolatiemateriaal., key: -2b5e52cb
+            label: Text
+            name: '-2b5e52cb'
+            widget: text
+          - hint: "Original text: … \_je best eerst je dak isoleert, key: 612671f6"
+            label: Text
+            name: 612671f6
+            widget: string
+          - hint: 'Original text: warmte stijgt. , key: -6c264535'
+            label: Text
+            name: '-6c264535'
+            widget: string
+          - hint: >-
+              Original text: In een ongeïsoleerde woning gaat er heel wat
+              energie via het dak verloren. Isoleer daarom in de eersteplaats je
+              zolder. Alsje hem niet gebruikt, kunje aileen isolatie op de vloer
+              plaatsen. Anders moet je het dak zelf isoleren. In de zomer houdt
+              de isolatie je huis koel, vooral als je met bio-ecologische
+              isolatiematerialen werkt. Synthetische isolatie houdt de
+              zomerwarmte nauwelijks tegen., key: 76271d3c
+            label: Text
+            name: 76271d3c
+            widget: text
+          - hint: 'Original text: … papiercelulose vochtregulerend is, key: 17c4bc80'
+            label: Text
+            name: 17c4bc80
+            widget: string
+          - hint: >-
+              Original text: Alle bio-ecologische isolatiematerialen zijn
+              dampopen en dus vochtregulerend? , key: -2516ee76
+            label: Text
+            name: '-2516ee76'
+            widget: string
+          - hint: >-
+              Original text: Gerecycleerd papier kan bijvoorbeeld tot 20% van
+              zijn massa aan damp opnemen, zonder dat de isolerende waarde in
+              het gedrang komt., key: -557822e
+            label: Text
+            name: '-557822e'
+            widget: text
+          - hint: 'Original text: … over dampdicht materiaal, key: 2f39eac8'
+            label: Text
+            name: 2f39eac8
+            widget: string
+          - hint: >-
+              Original text: Het meest dampdichte materiaal komt aan de (warme)
+              binnenzijde van het gebouw. , key: 4a97533a
+            label: Text
+            name: 4a97533a
+            widget: string
+          - hint: >-
+              Original text: Aan de (koude) buitenzijde is ze dampopen. Omdat
+              eventueel vocht zich zonder problemen naar buiten toe kan
+              verspreiden, voorkomt deze opbouw condensatie in de constructie.,
+              key: 4cba055
+            label: Text
+            name: 4cba055
+            widget: text
+          - hint: 'Original text: … over compact bouwen, key: -53ec51f9'
+            label: Text
+            name: '-53ec51f9'
+            widget: string
+          - hint: >-
+              Original text: Een huis met verdiepingen is compacter dan een
+              bungalow., key: -581cb4ab
+            label: Text
+            name: '-581cb4ab'
+            widget: string
+          - hint: >-
+              Original text: En een halfopen bebouwing, huis of appartement is
+              vanzelfsprekend ook veel compacter dan een losstaand huis. Er zijn
+              immers minder vrije muren., key: -7a9c6ff2
+            label: Text
+            name: '-7a9c6ff2'
+            widget: text
+          - hint: 'Original text: … over recyclage en milieu, key: 4bda7e9b'
+            label: Text
+            name: 4bda7e9b
+            widget: string
+          - hint: >-
+              Original text: ‘recycleerbaar’ is niet hetzelfde als
+              ‘milieuvriendelijk’. , key: -4e7e1f03
+            label: Text
+            name: '-4e7e1f03'
+            widget: string
+          - hint: >-
+              Original text: ‘Recycleerbaarheid’ is slechts een van de vele
+              criteria waaraan een product moet voldoen om het
+              ‘milieuvriendelijk’ te kunnen noemen? Een recycleerbaar product is
+              daarom nog niet milieuverantwoord., key: -5a6c3ccc
+            label: Text
+            name: '-5a6c3ccc'
+            widget: text
+          - hint: 'Original text: missie visie en de mensen, key: 47685afa'
+            label: Text
+            name: 47685afa
+            widget: string
+          - hint: 'Original text: missie, key: -40021ce8'
+            label: Text
+            name: '-40021ce8'
+            widget: string
+          - hint: 'Original text: visie, key: 6b04d3c'
+            label: Text
+            name: 6b04d3c
+            widget: string
+          - hint: >-
+              Original text: Vivamus sagittis lacus vel augue laoreet rutrum
+              faucibus dolor auctor. Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Curabitur blandit tempus porttitor. Lorem ipsum
+              dolor sit amet, consectetur adipiscing elit. Donec ullamcorper
+              nulla non metus auctor fringilla. Nulla vitae elit libero, a
+              pharetra augue. Donec ullamcorper nulla non metus auctor
+              fringilla., key: 4cf62c1d
+            label: Text
+            name: 4cf62c1d
+            widget: text
+          - hint: >-
+              Original text: Donec id elit non mi porta gravida at eget metus.
+              Etiam porta sem malesuada magna mollis euismod. Aenean eu leo
+              quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
+              Curabitur blandit tempus porttitor. Cras mattis consectetur purus
+              sit amet fermentum., key: 56918e71
+            label: Text
+            name: '56918e71'
+            widget: text
+          - hint: >-
+              Original text: Donec ullamcorper nulla non metus auctor fringilla.
+              Integer posuere erat a ante venenatis dapibus posuere velit
+              aliquet. Morbi leo risus, porta ac consectetur ac, vestibulum at
+              eros. Curabitur blandit tempus porttitor. Duis mollis, est non
+              commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem
+              nec elit., key: 9a06ad7
+            label: Text
+            name: 9a06ad7
+            widget: text
+          - hint: >-
+              Original text: Donec sed odio dui. Donec sed odio dui. Cras justo
+              odio, dapibus ac facilisis in, egestas eget quam. Nullam quis
+              risus eget urna mollis ornare vel eu leo. Aenean lacinia bibendum
+              nulla sed consectetur. Maecenas sed diam eget risus varius blandit
+              sit amet non magna. Cum sociis natoque penatibus et magnis dis
+              parturient montes, nascetur ridiculus mus., key: -54b8094c
+            label: Text
+            name: '-54b8094c'
+            widget: text
+          - hint: 'Original text: 0498 47 76 25, key: 19203ea4'
+            label: Text
+            name: 19203ea4
+            widget: string
+          - hint: 'Original text: hulp bij doe-het-zelf, key: 3b9a92fa'
+            label: Text
+            name: 3b9a92fa
+            widget: string
+          - hint: 'Original text: vacatures, key: -2afa482a'
+            label: Text
+            name: '-2afa482a'
+            widget: string
+          - hint: 'Original text: meer weten over isoleren >, key: 2122c99b'
+            label: Text
+            name: 2122c99b
+            widget: string
+          - hint: >-
+              Original text: U kan naast het inblazen van de isolatie ook voor
+              de volledige afwerking beroep doen op de ervaren medewerkers van
+              Eco-dé. Dit kan bijvoorbeeld gaan over het dichtleggen van een dak
+              of het afwerken van een ruimte in de woning met fermacell platen
+              (gipsplaten)., key: 24987197
+            label: Text
+            name: '24987197'
+            widget: text
+          - hint: >-
+              Original text: Met bijna vijftien jaar ervaring is Eco-dé
+              uitgegroeid tot dé specialist in ecologisch en economisch
+              isoleren. Wij willen die kennis graag met u delen! Zelfplaatsers
+              staan we graag bij met een deskundig advies, key: 47f5644f
+            label: Text
+            name: 47f5644f
+            widget: text
+          - hint: 'Original text: professioneel & particulier >, key: 69e03f06'
+            label: Text
+            name: 69e03f06
+            widget: string
+          - hint: >-
+              Original text: Met zijn lambda-waarde van 0,039W/mK [i3] tot
+              0,037W/mK [Dämstatt] scoort cellulose zeer goed. Anders gezegd is
+              het een slechte warmtegeleider en dus een prima isolatiemateriaal.
+              Het houdt uw woning constant op temperatuur: warm in de winter,
+              koel in de zomer. Bovendien werkt het geluidsdempend., key:
+              727e832
+            label: Text
+            name: '727e832'
+            widget: text
+          - hint: >-
+              Original text: Muren, vloeren, plafonds,… van uw kelder tot op uw
+              zolder, in platte of schuine daken, met spanten of gordingen,…
+              Papiervlokken zijn overal bruikbaar, zowel bij nieuwbouw als bij
+              renovatie., key: -2d7b307
+            label: Text
+            name: '-2d7b307'
+            widget: text
+          - hint: >-
+              Original text: Papiervlokken zijn een ecologisch topproduct. Het
+              recycleren van krantenpapier is een productieproces dat weinig
+              energie vraagt. Zo vermindert u twee keer uw CO2-uitstoot: eerst
+              door de energiebesparing in uw woning en dan nog eens door het
+              milieuvriendelijke materiaal en het energiearme productieproces.,
+              key: -6b8262ea
+            label: Text
+            name: '-6b8262ea'
+            widget: text
+          - hint: >-
+              Original text: Cellulose-isolatie is een natuurlijk product,
+              bewezen brandveilig, zonder schadelijke additieven en werkt
+              vochtregulerend. Dat zorgt voor een prettig en gezond
+              binnenklimaat. Dämmstatt is FSC en natureplus gelabeld. Met
+              papiervlokken haalt u het beste in huis voor uw woning én voor
+              uzelf., key: 6360d3c7
+            label: Text
+            name: 6360d3c7
+            widget: text
+          - hint: >-
+              Original text: Door te isoleren verlaagt u onmiddellijk uw
+              energiefactuur. Hoe dikker de isolatielaag, hoe groter de
+              besparing. Met papiervlokken kan u trouwens de dikte heel flexibel
+              bepalen in functie van de beschikbare ruimte of gewenste R-waarde,
+              zonder grote meerkost. Wie zelf de handen uit de mouwen wil
+              steken, kan ook op werkuren besparen. Onder onze deskundige
+              leiding kunt u (een deel van) het luchtdichtingswerk doen en zo de
+              kosten nog drukken., key: 469ba4dd
+            label: Text
+            name: 469ba4dd
+            widget: text
+          - hint: >-
+              Original text: Goed begonnen, is half gewonnen! Een mooie
+              eindresultaat begint met een goede voorbereiding en een perfecte
+              constructie. Met een laser en waterpas controleren wij uw dak,
+              muren en plafonds. Dit gebeurt vaak nog voor we de luchtdichting
+              plaatsen. Zo mag u zeker zijn van een strak resultaat., key:
+              7655bcda
+            label: Text
+            name: 7655bcda
+            widget: text
+          - hint: 'Original text: afgewerkt met gipsplaat, key: 42e2ac99'
+            label: Text
+            name: 42e2ac99
+            widget: string
+          - hint: 'Original text: Naadloos afgewerkt, key: a7a6a67'
+            label: Text
+            name: a7a6a67
+            widget: string
+          - hint: >-
+              Original text: We lijmen de platen en maken uw wand schilderklaar
+              door te schuren en te plamuren. De hoeken kitten we af. Resultaat
+              is een dampopen, geluidsisolerende, uiterst sterke wand…, key:
+              -6da35118
+            label: Text
+            name: '-6da35118'
+            widget: text
+          - hint: 'Original text: Direct overschilderbaar, key: 6454b6b1'
+            label: Text
+            name: 6454b6b1
+            widget: string
+          - hint: >-
+              Original text: We leveren uw wanden en plafonds in
+              Fermacell-platen schilderklaar af! Hierbij werken wij onze
+              gipsvezelplaten altijd volledig af met fijnplamuur. Dus als u wil
+              kan u onmiddellijk uw verfborstel bovenhalen als wij klaar zijn.,
+              key: 310cfee6
+            label: Text
+            name: 310cfee6
+            widget: text
+          - hint: 'Original text: eco-dé geeft advies, key: -151ec192'
+            label: Text
+            name: '-151ec192'
+            widget: string
+          - hint: >-
+              Original text: AAN PROFESSIONELEN EN DOE-HET-ZELVERS, key:
+              3f31b753
+            label: Text
+            name: 3f31b753
+            widget: string
+          - hint: 'Original text: professionelen, key: -33847174'
+            label: Text
+            name: '-33847174'
+            widget: string
+          - hint: >-
+              Original text: Architecten, aannemers, dakwerkers of andere
+              professionelen uit de bouwsector kunnen al tijdens de ontwerp- en
+              uitvoeringsfase beroep doen op onze expertise. Zit u met een acuut
+              probleem op een werf? Laat het weten en we zoeken samen naar een
+              oplossing!, key: 59937797
+            label: Text
+            name: '59937797'
+            widget: text
+          - hint: 'Original text: Ontwerp, key: 155ba561'
+            label: Text
+            name: 155ba561
+            widget: string
+          - hint: >-
+              Original text: Van in de ontwerpfase kan u een beroep doen op onze
+              expertise. Graag adviseren wij u hoe we uw project winddicht
+              kunnen maken en optimaal isoleren., key: 25e6edc4
+            label: Text
+            name: 25e6edc4
+            widget: text
+          - hint: 'Original text: Op de werf, key: -6afcbd5e'
+            label: Text
+            name: '-6afcbd5e'
+            widget: string
+          - hint: >-
+              Original text: Graag volgen wij uw bouwproject mee op. Duikt er
+              een probleem op op de werf? Laat het ons weten en wij zoeken mee
+              naar een oplossing!, key: -1ebff9d2
+            label: Text
+            name: '-1ebff9d2'
+            widget: text
+          - hint: 'Original text: particulieren, key: 2a62fcdb'
+            label: Text
+            name: 2a62fcdb
+            widget: string
+          - hint: >-
+              Original text: Toon ons uw bouwplannen en wij werken graag een
+              vrijblijvende offerte op maat uit. Wanneer u de werkzaamheden door
+              Eco-dé wilt laten uitvoeren, zorgen wij voor een duidelijke
+              planning en budgettering., key: 2ff942f2
+            label: Text
+            name: 2ff942f2
+            widget: text
+          - hint: 'Original text: Planning, key: 7346cb7d'
+            label: Text
+            name: 7346cb7d
+            widget: string
+          - hint: >-
+              Original text: U heeft plannen om een nieuwe woning te bouwen of
+              om een bestaand huis te renoveren? Wij helpen u graag bij al uw
+              isolatievragen. Welke materialen zijn het meest aangewezen in uw
+              situatie? Welk dikte? Welke materialen zijn het meest efficiënt?
+              Hoe zit het met subsidies en fiscaal voordeel voor isoleren?, key:
+              4fccbe6a
+            label: Text
+            name: 4fccbe6a
+            widget: text
+          - hint: 'Original text: doe-het-zelvers, key: -4b803578'
+            label: Text
+            name: '-4b803578'
+            widget: string
+          - hint: >-
+              Original text: Wie zelf graag de handen uit de mouwen steekt, kan
+              helpen bij het luchtdicht maken van de te isoleren ruimte(s). Wij
+              tonen u hoe het moet en staan u verder bij met raad en daad.
+              Contacteer ons vrijblijvend om de mogelijkheden te bespreken.,
+              key: 79058f89
+            label: Text
+            name: 79058f89
+            widget: text
+          - hint: 'Original text: Coaching, key: -351386d8'
+            label: Text
+            name: '-351386d8'
+            widget: string
+          - hint: >-
+              Original text: Wij tonen u hoe u best te werk gaat bij het
+              luchtdicht maken. Hierdoor bespaart u niet alleen op werkuren,
+              maar ook op de hoeveelheid isolatie., key: 4c579045
+            label: Text
+            name: 4c579045
+            widget: text
+          - hint: >-
+              Original text: Alle nodige materialen leveren wij aan huis.
+              Bovendien kan u bij ons gratis professioneel gereedschap lenen. U
+              betaalt alleen de gebruikte materialen, de overschot nemen wij
+              terug., key: 1c0df817
+            label: Text
+            name: 1c0df817
+            widget: text
+          - hint: |-
+              Original text: 2150 Borsbeek
+                        , key: -60cb8d73
+            label: Text
+            name: '-60cb8d73'
+            widget: string
+          - hint: 'Original text: advies voor particulieren, key: 6eedbe73'
+            label: Text
+            name: 6eedbe73
+            widget: string
+          - hint: >-
+              Original text: Isolatie is de beste investering voor je woning.
+              Niet alleen betaalt de overheid nog steeds een groot deel van de
+              kosten, je energierekening gaat voorgoed omlaag, zodat je je
+              investering heel snel terugverdient., key: -6d04651b
+            label: Text
+            name: '-6d04651b'
+            widget: text
+          - hint: 'Original text: VAN planning tot realisatie, key: 34518a04'
+            label: Text
+            name: 34518a04
+            widget: string
+          - hint: 'Original text: Natuurlijk isoleren, key: -5cb7f412'
+            label: Text
+            name: '-5cb7f412'
+            widget: string
+          - hint: >-
+              Original text: Door milieuvriendelijk isolatiemateriaal te
+              gebruiken, spaart u niet alleen het milieu twee keer - de eerste
+              keer bij productie van de materialen, de tweede keer bij uw eigen
+              energieverbruik - maar zorgt u ook voor een gezond binnenmilieu in
+              uw huis, key: 2701740b
+            label: Text
+            name: 2701740b
+            widget: text
+          - hint: >-
+              Original text: Klik hier voor de recente premie- en
+              subsidieregeling., key: 301adb65
+            label: Text
+            name: 301adb65
+            widget: string
+          - hint: 'Original text: Advies bij uw plannen, key: 444dfc9'
+            label: Text
+            name: 444dfc9
+            widget: string
+          - hint: "Original text: Plant je een renovatie, uitbreiding of nieuwbouw, wij helpen je bij al jouw isolatievragen: welk materiaal is het meest aangewezen in uw geval, in welke dikte; wat isoleert het best of welk procédé is in jouw geval het voordeligst?\_Samen met jou stellen we een planning op, die wij strikt opvolgen Na oplevering krijgt je van ons de nodige attesten voor premies en subsidies. , key: 7e96c934"
+            label: Text
+            name: 7e96c934
+            widget: text
+          - hint: 'Original text: Een totaalpakket, key: 7a87dcc5'
+            label: Text
+            name: 7a87dcc5
+            widget: string
+          - hint: >-
+              Original text: Met laser en waterpas in aanslag controleren wij je
+              dak, muren en plafonds tot op de millimeter nauwkeurig en stellen
+              bij indien nodig. We isoleren altijd met milieuvriendelijke en
+              gezonde materialen, in de meeste gevallen met ingeblazen., key:
+              -3920365b
+            label: Text
+            name: '-3920365b'
+            widget: text
+          - hint: 'Original text: advies voor professionelen, key: 1948fff4'
+            label: Text
+            name: 1948fff4
+            widget: string
+          - hint: >-
+              Original text: Dat isolatie perfect luchtdicht maar dampopen moet
+              afgewerkt worden, moeten we jou als professional niet meer
+              vertellen …, key: 4a15dba2
+            label: Text
+            name: 4a15dba2
+            widget: text
+          - hint: 'Original text: advies & ondersteuning, key: 31afbd81'
+            label: Text
+            name: 31afbd81
+            widget: string
+          - hint: >-
+              Original text: Wij delen graag onze expertise met jou voor dit
+              aspect van jouw ontwerp of werf: koudebruggen, condensatie- of
+              andere bouwproblemen..., voorkomen is altijd beter dan genezen.
+              Doe daarom gerust reeds vanaf het ontwerpstadium een beroep op
+              ons., key: -337221dc
+            label: Text
+            name: '-337221dc'
+            widget: text
+          - hint: 'Original text: op de werf, key: 1e316682'
+            label: Text
+            name: '1e316682'
+            widget: string
+          - hint: >-
+              Original text: Ook tijdens de uitvoering van jou bouwwerf staan we
+              voor je klaar. , key: -6e17907a
+            label: Text
+            name: '-6e17907a'
+            widget: string
+          - hint: >-
+              Original text: Als adviseur, als uitvoerder maar ook als back-up
+              voor collega's: tijdelijk hulp nodig, een acuut probleem, of
+              behoefte aan een tweede opinie?, key: -6cb78c08
+            label: Text
+            name: '-6cb78c08'
+            widget: text
+          - hint: 'Original text: Blowerdoor service, key: -6f5a0a3e'
+            label: Text
+            name: '-6f5a0a3e'
+            widget: string
+          - hint: >-
+              Original text: We stellen onze blowerdoor-apparatuur en -expertise
+              ook ten dienste van derden. In de loop van uw bouwproces kunnen we
+              luchtlekken opsporen en verhelpen.Wij verzorgen het officieel
+              blowerdoor-testverslag voor uw EPB., key: -54bad39b
+            label: Text
+            name: '-54bad39b'
+            widget: text
+          - hint: >-
+              Original text: om isolatiewerken nog toegankelijker en beter
+              betaalbaar te maken, hebben we ons gespecialiseerd in hulp aan
+              zelfplaatsers, key: 572812b3
+            label: Text
+            name: 572812b3
+            widget: text
+          - hint: 'Original text: tips & trics, key: 1cb125f9'
+            label: Text
+            name: 1cb125f9
+            widget: string
+          - hint: >-
+              Original text: Maecenas faucibus mollis interdum. Curabitur
+              blandit tempus porttitor. Maecenas faucibus mollis interdum.
+              Integer posuere erat a ante venenatis dapibus posuere velit
+              aliquet. Integer posuere erat a ante venenatis dapibus posuere
+              velit aliquet. Donec ullamcorper nulla non metus auctor
+              fringilla., key: -25ea344a
+            label: Text
+            name: '-25ea344a'
+            widget: text
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+              Donec ullamcorper nulla non metus auctor fringilla. Donec id elit
+              non mi porta gravida at eget metus., key: -25990215
+            label: Text
+            name: '-25990215'
+            widget: text
+          - hint: >-
+              Original text: Nullam id dolor id nibh ultricies vehicula ut id
+              elit. Vestibulum id ligula porta felis euismod semper. Nullam quis
+              risus eget urna mollis ornare vel eu leo. Duis mollis, est non
+              commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem
+              nec elit., key: -64266c7b
+            label: Text
+            name: '-64266c7b'
+            widget: text
+          - hint: >-
+              Original text: Duis mollis, est non commodo luctus, nisi erat
+              porttitor ligula, eget lacinia odio sem nec elit. Curabitur
+              blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare
+              sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh
+              ultricies vehicula ut id elit., key: -649b06be
+            label: Text
+            name: '-649b06be'
+            widget: text
+          - hint: 'Original text: Maecenas faucibus mollis interdum., key: af5afe7'
+            label: Text
+            name: af5afe7
+            widget: string
+          - hint: 'Original text: StyleGuide, key: 7dd9efeb'
+            label: Text
+            name: 7dd9efeb
+            widget: string
+          - hint: 'Original text: html heading tags, key: -478d1234'
+            label: Text
+            name: '-478d1234'
+            widget: string
+          - hint: 'Original text: H1 Heading, key: -5b793e55'
+            label: Text
+            name: '-5b793e55'
+            widget: string
+          - hint: 'Original text: H2 Heading, key: 38cb30ac'
+            label: Text
+            name: 38cb30ac
+            widget: string
+          - hint: 'Original text: H3 Heading, key: -32f06053'
+            label: Text
+            name: '-32f06053'
+            widget: string
+          - hint: 'Original text: H4 Heading, key: 61540eae'
+            label: Text
+            name: 61540eae
+            widget: string
+          - hint: 'Original text: heading classes, key: -2166cff8'
+            label: Text
+            name: '-2166cff8'
+            widget: string
+          - hint: 'Original text: subheading, key: 73df37c2'
+            label: Text
+            name: 73df37c2
+            widget: string
+          - hint: 'Original text: subheading 2, key: -70facac'
+            label: Text
+            name: '-70facac'
+            widget: string
+          - hint: 'Original text: kopje, key: 617f9c7'
+            label: Text
+            name: 617f9c7
+            widget: string
+          - hint: 'Original text: question, key: -457dc41a'
+            label: Text
+            name: '-457dc41a'
+            widget: string
+          - hint: 'Original text: intro, key: 5fb666c'
+            label: Text
+            name: 5fb666c
+            widget: string
+          - hint: >-
+              Original text: This is some text inside of Donec ullamcorper nulla
+              non metus auctor fringilla. Curabitur blandit tempus porttitor.
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur
+              et. Nullam quis risus eget urna mollis ornare vel eu leo. Cras
+              mattis consectetur purus sit amet fermentum.a div block., key:
+              6c87f787
+            label: Text
+            name: 6c87f787
+            widget: text
+          - hint: 'Original text: body, key: 2e39a2'
+            label: Text
+            name: 2e39a2
+            widget: string
+          - hint: >-
+              Original text: This is some text inside of Donec ullamcorper nulla
+              non metus auctor fringilla. Curabitur blandit tempus porttitor.
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur
+              et. Nullam quis risus eget urna mollis ornare vel eu leo. Cras
+              mattis consectetur purus sit amet , key: 48af5ef3
+            label: Text
+            name: 48af5ef3
+            widget: text
+          - hint: 'Original text: answer, key: -5435c042'
+            label: Text
+            name: '-5435c042'
+            widget: string
+          - hint: 'Original text: buttons & labels, key: 32d872f8'
+            label: Text
+            name: 32d872f8
+            widget: string
+          - hint: 'Original text: meer leren over isoleren >, key: -4c48672'
+            label: Text
+            name: '-4c48672'
+            widget: string
+          - hint: 'Original text: colors, key: -50c14290'
+            label: Text
+            name: '-50c14290'
+            widget: string
+          - hint: 'Original text: white, key: 6bdcc29'
+            label: Text
+            name: 6bdcc29
+            widget: string
+          - hint: 'Original text: black, key: 5978fff'
+            label: Text
+            name: 5978fff
+            widget: string
+          - hint: 'Original text: grey, key: 308adf'
+            label: Text
+            name: 308adf
+            widget: string
+          - hint: 'Original text: green, key: 5e0cf03'
+            label: Text
+            name: 5e0cf03
+            widget: string
+          - hint: 'Original text: red, key: 1b891'
+            label: Text
+            name: 1b891
+            widget: string
+          - hint: 'Original text: gezocht, key: -41988c4'
+            label: Text
+            name: '-41988c4'
+            widget: string
+          - hint: >-
+              Original text: Eco-dé, specialist in ecologisch isoleren, , key:
+              -1109a252
+            label: Text
+            name: '-1109a252'
+            widget: string
+          - hint: 'Original text: zoekt een nieuwe collega., key: -2e010837'
+            label: Text
+            name: '-2e010837'
+            widget: string
+          - hint: >-
+              Original text: Bezorg jij mensen graag een warm gevoel?, key:
+              -490cde72
+            label: Text
+            name: '-490cde72'
+            widget: string
+          - hint: 'Original text: Gezocht: Talent in isoleren(m/v), key: 2122d1d7'
+            label: Text
+            name: 2122d1d7
+            widget: string
+          - hint: >-
+              Original text: Eco-dé, specialist in ecologisch isoleren, zoekt
+              een nieuwe collega., key: -474e4625
+            label: Text
+            name: '-474e4625'
+            widget: string
+          - hint: >-
+              Original text: Ben jij een warme persoon die op de werf steeds het
+              hoofd weet koel te houden?, key: 2450e79c
+            label: Text
+            name: 2450e79c
+            widget: string
+          - hint: >-
+              Original text: Heb jij ervaring in de bouwsector en ken je iets
+              van luchtdichting?, key: -4fb4f55e
+            label: Text
+            name: '-4fb4f55e'
+            widget: string
+          - hint: >-
+              Original text: Op de werf ben je verantwoordelijk voor het
+              inblazen van isolatie (cellulose/papiervlokken) in het dak, muren,
+              key: -1fed779
+            label: Text
+            name: '-1fed779'
+            widget: text
+          - hint: >-
+              Original text: en/of vloeren. Wij voorzien een deskundige
+              opleiding zodat je op korte tijd kan leren isoleren., key:
+              2a04c859
+            label: Text
+            name: 2a04c859
+            widget: text
+          - hint: >-
+              Original text: Met je aanstekelijk enthousiasme draag je mee ons
+              verhaal uit van ecologisch en economisch isoleren., key: 1a6029db
+            label: Text
+            name: 1a6029db
+            widget: text
+          - hint: >-
+              Original text: Je kan zelfstandig werken. Je bent steeds aan de
+              slag op werven in de omgeving van Antwerpen., key: -5a45eeb5
+            label: Text
+            name: '-5a45eeb5'
+            widget: text
+          - hint: >-
+              Original text: Je bent op de hoogte van hedendaagse technieken van
+              isoleren en luchtdichting, of toont je bereid om hier snel in bij
+              te leren., key: -18794031
+            label: Text
+            name: '-18794031'
+            widget: text
+          - hint: "Original text: Stap jij mee in het verhaal van Eco-dé?\_, key: 31fb9d24"
+            label: Text
+            name: 31fb9d24
+            widget: string
+          - hint: >-
+              Original text: Neem dan vandaag nog contact op met Oliver De
+              Winter!, key: -254b6d9
+            label: Text
+            name: '-254b6d9'
+            widget: string
+          - hint: >-
+              Original text: Voel jij je helemaal op je gemak op een dak?, key:
+              5f7e24da
+            label: Text
+            name: 5f7e24da
+            widget: string
+          - hint: >-
+              Original text: Gezocht: Dakwerker-schrijnwerker (m/v), key:
+              2e023537
+            label: Text
+            name: '2e023537'
+            widget: string
+          - hint: >-
+              Original text: Heb jij ervaring als dakwerker en ken jij iets van
+              luchtdichting?, key: -57f49057
+            label: Text
+            name: '-57f49057'
+            widget: string
+          - hint: >-
+              Original text: Op de werf zorg jij er mee voor dat collega’s de
+              isolatie vlot kunnen inblazen in het dak of muren., key: -28d3267d
+            label: Text
+            name: '-28d3267d'
+            widget: text
+          - hint: >-
+              Original text: Jij ziet het helemaal zitten om een dak,
+              zolderruimte of andere structuren uit te timmeren, een damprem te,
+              key: -311dd2cb
+            label: Text
+            name: '-311dd2cb'
+            widget: text
+          - hint: >-
+              Original text: plaatsen, dakramen te installeren, dakbedekking
+              deels te verwijderen,…, key: -320bf9f0
+            label: Text
+            name: '-320bf9f0'
+            widget: string
+          - hint: >-
+              Original text: Als de isolatie ingeblazen is, kan jij de afwerking
+              (mee) voor je rekening nemen: dakbedekking terug leggen,, key:
+              -7d4abfb0
+            label: Text
+            name: '-7d4abfb0'
+            widget: text
+          - hint: >-
+              Original text: afwerken met fermacell-platen, plaatsen van houten
+              gevelbekleding…, key: -340d06f1
+            label: Text
+            name: '-340d06f1'
+            widget: string
+          - hint: >-
+              Original text: Je hebt al enige ervaring als dakwerker en/of
+              schrijnwerker, of je toont je bereid om hier snel in bij te
+              leren., key: 35996a70
+            label: Text
+            name: 35996a70
+            widget: text
+          - hint: >-
+              Original text: Maecenas sed diam eget risus varius blandit sit
+              amet non magna. Morbi leo risus, porta ac consectetur ac,
+              vestibulum at eros. Curabitur blandit tempus porttitor. Vestibulum
+              id ligula porta felis euismod semper., key: 4dc44edf
+            label: Text
+            name: 4dc44edf
+            widget: text
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: #intro, key: 41b50429'
+            label: Link
+            name: 41b50429
+            widget: string
+          - hint: 'Original link: #voordelen, key: -7fbb07ab'
+            label: Link
+            name: '-7fbb07ab'
+            widget: string
+          - hint: 'Original link: #luchtdichting, key: -4a94125'
+            label: Link
+            name: '-4a94125'
+            widget: string
+          - hint: 'Original link: /professional/, key: -375cd4e7'
+            label: Link
+            name: '-375cd4e7'
+            widget: string
+          - hint: 'Original link: /particulier/, key: 6853736c'
+            label: Link
+            name: 6853736c
+            widget: string
+          - hint: 'Original link: /doe-het-zelf/, key: 2bb82412'
+            label: Link
+            name: 2bb82412
+            widget: string
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: #contact, key: 6c80469d'
+            label: Link
+            name: 6c80469d
+            widget: string
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: /#waarom, key: 1e66c26d'
+            label: Link
+            name: 1e66c26d
+            widget: string
+          - hint: 'Original link: /#voordelen, key: -29be363c'
+            label: Link
+            name: '-29be363c'
+            widget: string
+          - hint: 'Original link: /#toepassingen, key: 482bac64'
+            label: Link
+            name: 482bac64
+            widget: string
+          - hint: 'Original link: /#luchtdichting, key: 7a9f40ca'
+            label: Link
+            name: 7a9f40ca
+            widget: string
+          - hint: 'Original link: /dakwerken/, key: -5a6f8820'
+            label: Link
+            name: '-5a6f8820'
+            widget: string
+          - hint: 'Original link: /over-ons/, key: -570151bb'
+            label: Link
+            name: '-570151bb'
+            widget: string
+          - hint: 'Original link: /verhalen/, key: 72658f47'
+            label: Link
+            name: 72658f47
+            widget: string
+          - hint: 'Original link: /info/, key: 562ef672'
+            label: Link
+            name: 562ef672
+            widget: string
+          - hint: 'Original link: /vacatures/, key: 21ae1488'
+            label: Link
+            name: 21ae1488
+            widget: string
+          - hint: 'Original link: /vacatures#isoleren, key: -202ca867'
+            label: Link
+            name: '-202ca867'
+            widget: string
+          - hint: 'Original link: /vacatures#dak-schrijnwerker, key: 4cf46f0c'
+            label: Link
+            name: 4cf46f0c
+            widget: string
+          - hint: 'Original link: tel:032498477625, key: -49bee38'
+            label: Link
+            name: '-49bee38'
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:info@ecologisch-isoleren.be?subject=via%20de%20website,
+              key: 19e7f84b
+            label: Link
+            name: 19e7f84b
+            widget: string
+          - hint: 'Original link: https://webflow.com/?r=0, key: -56784291'
+            label: Link
+            name: '-56784291'
+            widget: string
+          - hint: 'Original link: http://www.lucifer.be, key: a509c36'
+            label: Link
+            name: a509c36
+            widget: string
+          - hint: 'Original link: tel:0032498477625, key: 5760efda'
+            label: Link
+            name: 5760efda
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:ecologischisoleren@gmail.com?subject=via%20de%20website,
+              key: b883f06
+            label: Link
+            name: b883f06
+            widget: string
+          - hint: >-
+              Original link: https://client-first.webflow.io/style-system/intro,
+              key: -6345d6c
+            label: Link
+            name: '-6345d6c'
+            widget: string
+          - hint: 'Original link: http://finsweet.com, key: 9cd90ea'
+            label: Link
+            name: 9cd90ea
+            widget: string
+          - hint: >-
+              Original link: https://client-first-builder.webflow.io/builder,
+              key: -65a79edf
+            label: Link
+            name: '-65a79edf'
+            widget: string
+          - hint: 'Original link: #isoleren, key: 67aeac40'
+            label: Link
+            name: 67aeac40
+            widget: string
+          - hint: 'Original link: tel:0498477625, key: 67fbc507'
+            label: Link
+            name: 67fbc507
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:info@ecologisch-isoleren.be?subject=Dakwerker-schrijnwerker,
+              key: -7ee7cf21
+            label: Link
+            name: '-7ee7cf21'
+            widget: string
+          - hint: 'Original link: /pages/old-home/, key: 24277b70'
+            label: Link
+            name: 24277b70
+            widget: string
+          - hint: 'Original link: #isolatie, key: 67ace2b9'
+            label: Link
+            name: 67ace2b9
+            widget: string
+          - hint: 'Original link: #afwerking, key: 41881c73'
+            label: Link
+            name: 41881c73
+            widget: string
+          - hint: 'Original link: #advies, key: -194768d9'
+            label: Link
+            name: '-194768d9'
+            widget: string
+          - hint: >-
+              Original link: https://www.vlaanderen.be/premies-voor-renovatie,
+              key: 2b82ba46
+            label: Link
+            name: 2b82ba46
+            widget: string
+          - hint: 'Original link: #dak-schrijnwerker, key: -1f7f99bb'
+            label: Link
+            name: '-1f7f99bb'
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: i6dbfd645
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1ba68338
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: iec5eb53
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 76caa3a2
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 313ccd4f
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 12764d39
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i32c1c36
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i4aa78ac0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 371dc8cd
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
