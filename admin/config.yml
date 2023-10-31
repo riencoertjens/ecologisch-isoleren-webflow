@@ -2372,57 +2372,6 @@ collections:
             label: Text
             name: '-54bad39b'
             widget: text
-          - hint: >-
-              Original text: om isolatiewerken nog toegankelijker en beter
-              betaalbaar te maken, hebben we ons gespecialiseerd in hulp aan
-              zelfplaatsers, key: 572812b3
-            label: Text
-            name: 572812b3
-            widget: text
-          - hint: 'Original text: tips & trics, key: 1cb125f9'
-            label: Text
-            name: 1cb125f9
-            widget: string
-          - hint: >-
-              Original text: Maecenas faucibus mollis interdum. Curabitur
-              blandit tempus porttitor. Maecenas faucibus mollis interdum.
-              Integer posuere erat a ante venenatis dapibus posuere velit
-              aliquet. Integer posuere erat a ante venenatis dapibus posuere
-              velit aliquet. Donec ullamcorper nulla non metus auctor
-              fringilla., key: -25ea344a
-            label: Text
-            name: '-25ea344a'
-            widget: text
-          - hint: >-
-              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-              Donec ullamcorper nulla non metus auctor fringilla. Donec id elit
-              non mi porta gravida at eget metus., key: -25990215
-            label: Text
-            name: '-25990215'
-            widget: text
-          - hint: >-
-              Original text: Nullam id dolor id nibh ultricies vehicula ut id
-              elit. Vestibulum id ligula porta felis euismod semper. Nullam quis
-              risus eget urna mollis ornare vel eu leo. Duis mollis, est non
-              commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem
-              nec elit., key: -64266c7b
-            label: Text
-            name: '-64266c7b'
-            widget: text
-          - hint: >-
-              Original text: Duis mollis, est non commodo luctus, nisi erat
-              porttitor ligula, eget lacinia odio sem nec elit. Curabitur
-              blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare
-              sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh
-              ultricies vehicula ut id elit., key: -649b06be
-            label: Text
-            name: '-649b06be'
-            widget: text
-          - hint: 'Original text: Maecenas faucibus mollis interdum., key: af5afe7'
-            label: Text
-            name: af5afe7
-            widget: string
           - hint: 'Original text: StyleGuide, key: 7dd9efeb'
             label: Text
             name: 7dd9efeb
@@ -2529,6 +2478,57 @@ collections:
           - hint: 'Original text: red, key: 1b891'
             label: Text
             name: 1b891
+            widget: string
+          - hint: >-
+              Original text: om isolatiewerken nog toegankelijker en beter
+              betaalbaar te maken, hebben we ons gespecialiseerd in hulp aan
+              zelfplaatsers, key: 572812b3
+            label: Text
+            name: 572812b3
+            widget: text
+          - hint: 'Original text: tips & trics, key: 1cb125f9'
+            label: Text
+            name: 1cb125f9
+            widget: string
+          - hint: >-
+              Original text: Maecenas faucibus mollis interdum. Curabitur
+              blandit tempus porttitor. Maecenas faucibus mollis interdum.
+              Integer posuere erat a ante venenatis dapibus posuere velit
+              aliquet. Integer posuere erat a ante venenatis dapibus posuere
+              velit aliquet. Donec ullamcorper nulla non metus auctor
+              fringilla., key: -25ea344a
+            label: Text
+            name: '-25ea344a'
+            widget: text
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+              Donec ullamcorper nulla non metus auctor fringilla. Donec id elit
+              non mi porta gravida at eget metus., key: -25990215
+            label: Text
+            name: '-25990215'
+            widget: text
+          - hint: >-
+              Original text: Nullam id dolor id nibh ultricies vehicula ut id
+              elit. Vestibulum id ligula porta felis euismod semper. Nullam quis
+              risus eget urna mollis ornare vel eu leo. Duis mollis, est non
+              commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem
+              nec elit., key: -64266c7b
+            label: Text
+            name: '-64266c7b'
+            widget: text
+          - hint: >-
+              Original text: Duis mollis, est non commodo luctus, nisi erat
+              porttitor ligula, eget lacinia odio sem nec elit. Curabitur
+              blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare
+              sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh
+              ultricies vehicula ut id elit., key: -649b06be
+            label: Text
+            name: '-649b06be'
+            widget: text
+          - hint: 'Original text: Maecenas faucibus mollis interdum., key: af5afe7'
+            label: Text
+            name: af5afe7
             widget: string
           - hint: 'Original text: gezocht, key: -41988c4'
             label: Text
